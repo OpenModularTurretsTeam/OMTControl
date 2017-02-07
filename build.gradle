@@ -122,11 +122,11 @@ repositories {
 }
 
 def omlib_local = false
-configure(allprojects.any {it.name == 'OMLib'}) {
+configure(allprojects.findAll {it.name == 'OMLib'}) {
    omlib_local = true
 }
 def omt_local = false
-configure(allprojects.any {it.name == 'OpenModularTurrets'}) {
+configure(allprojects.findAll {it.name == 'OpenModularTurrets'}) {
    omt_local = true
 }
 
