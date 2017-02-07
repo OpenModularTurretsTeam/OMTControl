@@ -15,6 +15,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'maven-publish'
 apply plugin: 'idea'
+apply plugin: 'java'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
@@ -121,11 +122,11 @@ repositories {
 }
 
 def omlib_local = false
-configure(subprojects.findAll {it.name == 'OMLib'}) {
+configure(allprojects.any {it.name == 'OMLib'}) {
    omlib_local = true
 }
 def omt_local = false
-configure(subprojects.findAll {it.name == 'OpenModularTurrets'}) {
+configure(allprojects.any {it.name == 'OpenModularTurrets'}) {
    omt_local = true
 }
 
@@ -152,7 +153,6 @@ dependencies {
     runtime "com.enderio.core:EnderCore:${config.minecraft_version}-${config.endercore_version}"
     //runtime "com.github.azanor:baubles:${config.baubles_version}"
 }
-
 
 task deobfJar(type: Jar) {
     from sourceSets.main.output
