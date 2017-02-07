@@ -16,7 +16,7 @@ import omtteam.omtcontrol.reference.Reference;
 
 import java.util.logging.Logger;
 
-@Mod(modid = Reference.MOD_ID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = "1.7.10", dependencies = Reference.DEPENDENCIES)
+@Mod(modid = Reference.MOD_ID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = "[1.9,1.12)", dependencies = Reference.DEPENDENCIES)
 public class OMTControl {
     @SuppressWarnings("unused")
     @Mod.Instance(Reference.MOD_ID)
