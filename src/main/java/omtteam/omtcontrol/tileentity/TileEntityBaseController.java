@@ -1,5 +1,6 @@
 package omtteam.omtcontrol.tileentity;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import omtteam.omlib.tileentity.TileEntityMachine;
@@ -13,6 +14,11 @@ import javax.annotation.ParametersAreNonnullByDefault;
  */
 public class TileEntityBaseController extends TileEntityMachine {
     public TileEntityBaseController() {
+    }
+
+    @Override
+    public boolean isUseableByPlayer(EntityPlayer player) {
+        return false;
     }
 
     @Override
