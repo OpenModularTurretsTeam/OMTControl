@@ -1,0 +1,12 @@
+tile.manual_target.name=Manual Targeting System
+
+gui.omtteam.omtcontrol:set_yaw_pitch=Set Yaw+Pitch
+gui.omtteam.omtcontrol:shoot_turret=Shoot turret
+gui.omtteam.omtcontrol:selected_turret=selected turret
+
+tooltip.omtteam.omtcontrol:set_yaw_pitch=Sets Yaw+Pitch from Text Fields to turret
+tooltip.omtteam.omtcontrol:shoot_turret=Shoot turret manually.
+tooltip.omtteam.omtcontrol:selected_turret=Switch to next available turret.
+tooltip.omtteam.omtcontrol:toggle_auto_fire=Switch the automatic fire mode of the turret.
+tooltip.omtteam.omtcontrol:yaw=Yaw rotation to set to the turret.
+tooltip.omtteam.omtcontrol:pitch=Pitch rotation to set to the turret.
