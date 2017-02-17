@@ -1,8 +1,5 @@
 package omtteam.omtcontrol.handler;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
 
 import java.io.File;

@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import omtteam.omtcontrol.client.gui.OMTControlTab;
 import omtteam.omtcontrol.compatability.ModCompatibility;
 import omtteam.omtcontrol.handler.ConfigHandler;
 import omtteam.omtcontrol.handler.GuiHandler;
@@ -16,17 +17,17 @@ import omtteam.omtcontrol.reference.Reference;
 
 import java.util.logging.Logger;
 
-@Mod(modid = Reference.MOD_ID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = "1.7.10", dependencies = Reference.DEPENDENCIES)
+@Mod(modid = Reference.MOD_ID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = "[1.9,1.12)", dependencies = Reference.DEPENDENCIES)
 public class OMTControl {
     @SuppressWarnings("unused")
     @Mod.Instance(Reference.MOD_ID)
     public static OMTControl instance;
 
     @SuppressWarnings({"CanBeFinal", "unused"})
-    @SidedProxy(clientSide = "omtteam.omtcontrol.proxy.ClientProxy", serverSide = "omtteam.omtcontrol.proxy" + "" + ".CommonProxy")
+    @SidedProxy(clientSide = "omtteam.omtcontrol.proxy.ClientProxy", serverSide = "omtteam.omtcontrol.proxy.ServerProxy")
     private static CommonProxy proxy;
 
-    public static CreativeTabs modularTurretsTab;
+    public static CreativeTabs creativeTab;
     @SuppressWarnings("FieldCanBeLocal")
     private GuiHandler gui;
     private static Logger logger;
@@ -41,7 +42,7 @@ public class OMTControl {
         logger = Logger.getLogger(Reference.NAME);
         ConfigHandler.init(event.getSuggestedConfigurationFile());
         gui = new GuiHandler();
-        //modularTurretsTab = new ModularTurretsTab(Reference.MOD_ID);
+        creativeTab = new OMTControlTab(Reference.MOD_ID);
         proxy.preInit();
         NetworkRegistry.INSTANCE.registerGuiHandler(this, gui);
     }

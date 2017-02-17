@@ -5,12 +5,11 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import omtteam.omtcontrol.init.ModBlocks;
+import omtteam.omtcontrol.reference.OMTControlNames;
 import omtteam.omtcontrol.reference.Reference;
 
 @SuppressWarnings("unused")
-@SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
 
     private void registerItemModel(final Item item, int meta) {
@@ -39,8 +38,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void preInit() {
         super.preInit();
-
-
+        registerBlockModelAsItem(ModBlocks.manualTarget, 0, OMTControlNames.Blocks.manualTarget);
     }
 
     @Override
@@ -57,7 +55,6 @@ public class ClientProxy extends CommonProxy {
     @Override
     protected void initEntityRenderers() {
         super.initEntityRenderers();
-
     }
 
 
@@ -65,4 +62,6 @@ public class ClientProxy extends CommonProxy {
     public void initHandlers() {
         super.initHandlers();
     }
+
+
 }

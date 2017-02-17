@@ -1,0 +1,12 @@
+tile.manual_target.name=Manuelles Ziel-System
+
+gui.omtteam.omtcontrol:set_yaw_pitch=Yaw+Pitch setzen
+gui.omtteam.omtcontrol:shoot_turret=Schieße Turm
+gui.omtteam.omtcontrol:selected_turret=ausgew. Turm
+
+tooltip.omtteam.omtcontrol:set_yaw_pitch=Setzt Yaw+Pitch von Text feld zu Turm.
+tooltip.omtteam.omtcontrol:shoot_turret=Turm manuell abfeuern.
+tooltip.omtteam.omtcontrol:selected_turret=Zum nächsten verfügbaren Turm wechseln.
+tooltip.omtteam.omtcontrol:toggle_auto_fire=Den Automatikfeuermodus des Turms wechseln.
+tooltip.omtteam.omtcontrol:yaw=Yaw Rotation für den Turm.
+tooltip.omtteam.omtcontrol:pitch=Pitch Rotation für den Turm.
