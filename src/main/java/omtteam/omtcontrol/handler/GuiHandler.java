@@ -11,6 +11,17 @@ import omtteam.omtcontrol.client.gui.ManualTargetGui;
 import omtteam.omtcontrol.client.gui.containers.BaseAddonBlockContainer;
 
 public class GuiHandler implements IGuiHandler {
+    private static GuiHandler instance;
+
+    private GuiHandler() {
+    }
+
+    public static GuiHandler getInstance() {
+        if (instance == null) {
+            instance = new GuiHandler();
+        }
+        return instance;
+    }
     @Override
     public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
         switch (id) {

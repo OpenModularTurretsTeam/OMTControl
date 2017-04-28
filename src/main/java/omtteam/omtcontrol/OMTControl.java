@@ -28,8 +28,6 @@ public class OMTControl {
     private static CommonProxy proxy;
 
     public static CreativeTabs creativeTab;
-    @SuppressWarnings("FieldCanBeLocal")
-    private GuiHandler gui;
     private static Logger logger;
 
     public static Logger getLogger() {
@@ -41,10 +39,9 @@ public class OMTControl {
     public void preInit(FMLPreInitializationEvent event) {
         logger = Logger.getLogger(Reference.NAME);
         ConfigHandler.init(event.getSuggestedConfigurationFile());
-        gui = new GuiHandler();
         creativeTab = new OMTControlTab(Reference.MOD_ID);
         proxy.preInit();
-        NetworkRegistry.INSTANCE.registerGuiHandler(this, gui);
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, GuiHandler.getInstance());
     }
 
     @SuppressWarnings("unused")
