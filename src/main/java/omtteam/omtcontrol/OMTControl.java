@@ -39,7 +39,7 @@ public class OMTControl {
     public void preInit(FMLPreInitializationEvent event) {
         logger = Logger.getLogger(Reference.NAME);
         ConfigHandler.init(event.getSuggestedConfigurationFile());
-        creativeTab = new OMTControlTab(Reference.MOD_ID);
+        creativeTab = OMTControlTab.getInstance();
         proxy.preInit();
         NetworkRegistry.INSTANCE.registerGuiHandler(this, GuiHandler.getInstance());
     }
