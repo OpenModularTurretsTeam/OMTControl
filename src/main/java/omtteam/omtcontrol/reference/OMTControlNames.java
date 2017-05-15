@@ -11,7 +11,7 @@ public class OMTControlNames {
     }
 
     public static class Items {
-
+        public static final String laserPointer = "laser_pointer";
     }
 
     public static class Localizations {

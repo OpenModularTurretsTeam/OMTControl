@@ -8,6 +8,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import omtteam.omtcontrol.init.ModBlocks;
+import omtteam.omtcontrol.init.ModItems;
 import omtteam.omtcontrol.reference.OMTControlNames;
 import omtteam.omtcontrol.reference.Reference;
 
@@ -42,6 +43,7 @@ public class ClientProxy extends CommonProxy {
     public void preInit() {
         super.preInit();
         registerBlockModelAsItem(ModBlocks.baseAddonMain, 0, OMTControlNames.Blocks.baseAddonMain);
+        registerItemModel(ModItems.laserPointer, 0);
     }
 
     @Override
