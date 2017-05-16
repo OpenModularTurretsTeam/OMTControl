@@ -7,12 +7,14 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
 import net.minecraft.util.math.BlockPos;
-import omtteam.omtcontrol.network.messages.MessageManualTarget;
+import net.minecraft.world.World;
 import omtteam.omtcontrol.handler.NetworkingHandler;
+import omtteam.omtcontrol.network.messages.MessageManualTarget;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import static omtteam.omtcontrol.util.WorldUtil.getTurretsFromBase;
+import static omtteam.openmodularturrets.util.TurretHeadUtil.getTurretBase;
 
 public class BaseAddonBlockContainer extends Container {
     private final BlockPos pos;
@@ -41,7 +43,11 @@ public class BaseAddonBlockContainer extends Container {
         super.detectAndSendChanges();
         for (IContainerListener listener : this.listeners) {
             if (listener instanceof EntityPlayerMP) {
-                NetworkingHandler.INSTANCE.sendTo(new MessageManualTarget(this.pos, getTurretsFromBase(((EntityPlayerMP) listener).getEntityWorld().getTileEntity(pos))), (EntityPlayerMP) listener);
+                World world = ((EntityPlayerMP) listener).getEntityWorld();
+                if (getTurretBase(world, pos) == null) {
+                    return;
+                }
+                NetworkingHandler.INSTANCE.sendTo(new MessageManualTarget(this.pos, getTurretsFromBase(getTurretBase(world, pos))), (EntityPlayerMP) listener);
             }
         }
     }

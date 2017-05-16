@@ -131,12 +131,10 @@ configure(allprojects.findAll {it.name == 'OpenModularTurrets'}) {
 
 dependencies {
     deobfCompile "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}"
-    compile "igwmod:IGW-Mod-${config.igwmod_version}:userdev"
+    compileOnly "igwmod:IGW-Mod-${config.igwmod_version}:userdev"
     deobfCompile "mcp.mobius.waila:Hwyla:${config.hwyla_version}_${config.minecraft_version}"
     deobfCompile "li.cil.oc:OpenComputers:MC${config.minecraft_version}-${config.oc_version}"
     //compile "Azanor:Thaumcraft:${config.tc_version}:deobf@jar"
-    compile "net.industrial-craft:industrialcraft-2:${config.ic2_version}:dev"
-    compile "net.darkhax.tesla:Tesla:${config.minecraft_version}-${config.tesla_version}"
     if (!omlib_local) {
         compile "omtteam:omlib:${config.minecraft_version}-${config.omlib_version}:dev"
     } else {
