@@ -28,6 +28,7 @@ import omtteam.omlib.util.PlayerUtil;
 import omtteam.omlib.util.TrustedPlayer;
 import omtteam.omtcontrol.OMTControl;
 import omtteam.omtcontrol.init.ModBlocks;
+import omtteam.omtcontrol.items.blocks.ItemBlockBaseTurretAddonMain;
 import omtteam.omtcontrol.reference.OMTControlNames;
 import omtteam.omtcontrol.reference.Reference;
 import omtteam.openmodularturrets.blocks.BlockTurretBaseAddon;
@@ -62,7 +63,7 @@ public class BlockBaseTurretAddonMain extends BlockTurretBaseAddon implements IH
 
     @Override
     public ItemBlock getItemBlock(Block block) {
-        return new ItemBlockExpander(block);
+        return new ItemBlockBaseTurretAddonMain(block);
     }
 
     @Override
