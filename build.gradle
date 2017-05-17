@@ -134,6 +134,8 @@ dependencies {
     compileOnly "igwmod:IGW-Mod-${config.igwmod_version}:userdev"
     deobfCompile "mcp.mobius.waila:Hwyla:${config.hwyla_version}_${config.minecraft_version}"
     deobfCompile "li.cil.oc:OpenComputers:MC${config.minecraft_version}-${config.oc_version}"
+    compileOnly "net.industrial-craft:industrialcraft-2:${config.ic2_version}:dev"
+    compileOnly "net.darkhax.tesla:Tesla:${config.minecraft_version}-${config.tesla_version}"
     //compile "Azanor:Thaumcraft:${config.tc_version}:deobf@jar"
     if (!omlib_local) {
         compile "omtteam:omlib:${config.minecraft_version}-${config.omlib_version}:dev"
