@@ -28,7 +28,7 @@ public class ItemBlockBaseTurretAddonMain extends ItemBlockBaseAddon {
     public ItemBlockBaseTurretAddonMain(Block block) {
         super(block);
         setHasSubtypes(true);
-        this.setRegistryName(Reference.MOD_ID, OMTNames.Blocks.expander);
+        this.setRegistryName(Reference.MOD_ID, OMTControlNames.Blocks.manualTarget);
     }
 
     private final static String[] subNames = {
