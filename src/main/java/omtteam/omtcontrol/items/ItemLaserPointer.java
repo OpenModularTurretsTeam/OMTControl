@@ -8,18 +8,15 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import omtteam.omlib.compatability.minecraft.CompatItem;
 import omtteam.omtcontrol.OMTControl;
-import omtteam.omtcontrol.blocks.BlockBaseManualTarget;
+import omtteam.omtcontrol.blocks.BlockBaseTurretAddonMain;
 import omtteam.omtcontrol.reference.OMTControlNames;
 import omtteam.omtcontrol.reference.Reference;
-import omtteam.openmodularturrets.reference.OMTNames;
 import omtteam.openmodularturrets.tileentity.TurretBase;
 
 import javax.annotation.Nonnull;
@@ -44,7 +41,7 @@ public class ItemLaserPointer extends CompatItem {
 
     @Override
     public boolean doesSneakBypassUse(ItemStack stack, IBlockAccess world, BlockPos pos, EntityPlayer player) {
-        return world.getBlockState(pos).getBlock() instanceof BlockBaseManualTarget || super.doesSneakBypassUse(stack, world, pos, player);
+        return world.getBlockState(pos).getBlock() instanceof BlockBaseTurretAddonMain || super.doesSneakBypassUse(stack, world, pos, player);
     }
 
     @Override
