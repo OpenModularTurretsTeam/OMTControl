@@ -7,6 +7,7 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -28,11 +29,11 @@ import omtteam.omlib.util.PlayerUtil;
 import omtteam.omlib.util.TrustedPlayer;
 import omtteam.omtcontrol.OMTControl;
 import omtteam.omtcontrol.init.ModBlocks;
-import omtteam.omtcontrol.items.blocks.ItemBlockBaseTurretAddonMain;
+import omtteam.omtcontrol.items.blocks.ItemBlockBaseAddonMain;
 import omtteam.omtcontrol.reference.OMTControlNames;
 import omtteam.omtcontrol.reference.Reference;
+import omtteam.omtcontrol.tileentity.TileEntityBaseAddonMain;
 import omtteam.openmodularturrets.blocks.BlockTurretBaseAddon;
-import omtteam.openmodularturrets.items.blocks.ItemBlockExpander;
 import omtteam.openmodularturrets.tileentity.Expander;
 import omtteam.openmodularturrets.tileentity.TurretBase;
 
@@ -42,28 +43,28 @@ import java.util.List;
 
 import static omtteam.omlib.util.GeneralUtil.safeLocalize;
 import static omtteam.omlib.util.compat.ChatTools.addChatMessage;
+import static omtteam.openmodularturrets.blocks.BlockExpander.getBoundingBoxFromFacing;
 
 /**
  * Created by Keridos on 09/02/17.
  * This Class
  */
-public class BlockBaseTurretAddonMain extends BlockTurretBaseAddon implements IHasItemBlock {
+public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItemBlock {
     private static final PropertyInteger META = PropertyInteger.create("meta", 0, 9);
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
-    public BlockBaseTurretAddonMain() {
+    public BlockBaseAddonMain() {
         super();
         this.setCreativeTab(OMTControl.creativeTab);
         this.setHardness(2.0F);
         this.setSoundType(SoundType.STONE);
-        this.setUnlocalizedName(OMTControlNames.Blocks.manualTarget);
-        this.setRegistryName(Reference.MOD_ID, OMTControlNames.Blocks.manualTarget);
+        this.setUnlocalizedName(OMTControlNames.Blocks.baseAddonMain);
+        this.setRegistryName(Reference.MOD_ID, OMTControlNames.Blocks.baseAddonMain);
     }
-
 
     @Override
     public ItemBlock getItemBlock(Block block) {
-        return new ItemBlockBaseTurretAddonMain(block);
+        return new ItemBlockBaseAddonMain(block);
     }
 
     @Override
@@ -88,7 +89,7 @@ public class BlockBaseTurretAddonMain extends BlockTurretBaseAddon implements IH
     @Nonnull
     @ParametersAreNonnullByDefault
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-        Expander te = ((Expander) worldIn.getTileEntity(pos));
+        TileEntityBaseAddonMain te = ((TileEntityBaseAddonMain) worldIn.getTileEntity(pos));
         if (te != null) {
             return state.withProperty(FACING, te.getOrientation());
         } else return state.withProperty(FACING, EnumFacing.NORTH);
@@ -98,10 +99,16 @@ public class BlockBaseTurretAddonMain extends BlockTurretBaseAddon implements IH
     @Nonnull
     @ParametersAreNonnullByDefault
     public TileEntity createTileEntity(World world, IBlockState state) {
-        if (state.getValue(META) < 5) {
-            return new Expander(state.getValue(META), false);
-        } else {
-            return new Expander(state.getValue(META), true);
+        return new TileEntityBaseAddonMain(state.getValue(META));
+    }
+
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+        TileEntityBaseAddonMain te = (TileEntityBaseAddonMain) worldIn.getTileEntity(pos);
+        if (te != null) {
+            te.setOwnerName(te.getOwnerName());
+            te.setOwner(te.getOwner());
+            te.setSide();
         }
     }
 
@@ -109,14 +116,15 @@ public class BlockBaseTurretAddonMain extends BlockTurretBaseAddon implements IH
     @Nonnull
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         IBlockState blockState = this.getActualState(state, source, pos);
-        return MathUtil.rotateAABB(new AxisAlignedBB(1 / 8F, 1 / 8F, 0F, 7 / 8F, 7 / 8F, 3 / 8F), blockState.getValue(FACING).getOpposite());
+        EnumFacing facing = blockState.getValue(FACING);
+        return getBoundingBoxFromFacing(facing).offset(pos);
     }
 
     @Override
     public AxisAlignedBB getBoundingBoxFromState(IBlockState blockState, World world, BlockPos pos) {
-        return MathUtil.rotateAABB(new AxisAlignedBB(1 / 8F, 1 / 8F, 0F, 7 / 8F, 7 / 8F, 3 / 8F), blockState.getValue(FACING).getOpposite()).offset(pos);
+        EnumFacing facing = blockState.getValue(FACING);
+        return getBoundingBoxFromFacing(facing);
     }
-
     @Override
     public boolean isFullBlock(IBlockState state) {
         return false;
@@ -182,7 +190,7 @@ public class BlockBaseTurretAddonMain extends BlockTurretBaseAddon implements IH
     @ParametersAreNonnullByDefault
     public void clGetSubBlocks(Item item, CreativeTabs tab, List subItems) {
         for (int i = 0; i < 1; i++) {
-            subItems.add(new ItemStack(ModBlocks.manualTarget, 1, i));
+            subItems.add(new ItemStack(ModBlocks.baseAddonMain, 1, i));
         }
     }
 }
