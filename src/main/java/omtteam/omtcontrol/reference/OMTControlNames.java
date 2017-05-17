@@ -7,6 +7,7 @@ package omtteam.omtcontrol.reference;
 public class OMTControlNames {
     public static class Blocks {
         public static final String manualTarget = "manual_target";
+        public static final String baseAddonMain = "base_addon_main";
     }
 
     public static class Items {
