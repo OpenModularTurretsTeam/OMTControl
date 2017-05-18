@@ -1,3 +1,5 @@
+item.laser_pointer.name=Manual Targeting Laser
+
 tile.manual_target.name=Manual Targeting System
 
 gui.omtteam.omtcontrol:set_yaw_pitch=Set Yaw+Pitch

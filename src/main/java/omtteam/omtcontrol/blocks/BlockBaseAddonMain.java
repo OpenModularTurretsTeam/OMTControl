@@ -12,6 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -27,9 +28,11 @@ import omtteam.omlib.util.IHasItemBlock;
 import omtteam.omlib.util.MathUtil;
 import omtteam.omlib.util.PlayerUtil;
 import omtteam.omlib.util.TrustedPlayer;
+import omtteam.omlib.util.compat.ItemStackTools;
 import omtteam.omtcontrol.OMTControl;
 import omtteam.omtcontrol.init.ModBlocks;
 import omtteam.omtcontrol.items.blocks.ItemBlockBaseAddonMain;
+import omtteam.omtcontrol.items.ItemLaserPointer;
 import omtteam.omtcontrol.reference.OMTControlNames;
 import omtteam.omtcontrol.reference.Reference;
 import omtteam.omtcontrol.tileentity.TileEntityBaseAddonMain;
@@ -117,13 +120,13 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         IBlockState blockState = this.getActualState(state, source, pos);
         EnumFacing facing = blockState.getValue(FACING);
-        return getBoundingBoxFromFacing(facing).offset(pos);
+        return getBoundingBoxFromFacing(facing);
     }
 
     @Override
     public AxisAlignedBB getBoundingBoxFromState(IBlockState blockState, World world, BlockPos pos) {
         EnumFacing facing = blockState.getValue(FACING);
-        return getBoundingBoxFromFacing(facing);
+        return getBoundingBoxFromFacing(facing).offset(pos);
     }
     @Override
     public boolean isFullBlock(IBlockState state) {
@@ -162,12 +165,32 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
         TrustedPlayer trustedPlayer = PlayerUtil.getTrustedPlayer(playerIn, base);
         if (trustedPlayer != null) {
             if (base.getTrustedPlayer(playerIn.getUniqueID()).canOpenGUI) {
-                playerIn.openGui(OMTControl.instance, 1, worldIn, pos.getX(), pos.getY(), pos.getZ());
-                return true;
+                if (playerIn.getHeldItemMainhand() != ItemStackTools.getEmptyStack() && playerIn.getHeldItemMainhand().getItem() instanceof ItemLaserPointer) {
+                    if(playerIn.isSneaking()) {
+                        //System.out.println("unlink laser pointer!");
+                    } else {
+                        ((ItemLaserPointer) playerIn.getHeldItemMainhand().getItem()).setDataStored(playerIn.getHeldItemMainhand(), writeLaserPointerNBT(base.getPos()));
+                        if(worldIn.isRemote) {
+                            playerIn.addChatComponentMessage(new TextComponentString("link " + pos.toString()));
+                        }
+                    }
+                } else {
+                    playerIn.openGui(OMTControl.instance, 1, worldIn, pos.getX(), pos.getY(), pos.getZ());
+                    return true;
+                }
             }
         }
         if (PlayerUtil.isPlayerOwner(playerIn, base)) {
-            if (playerIn.isSneaking() && playerIn.getHeldItemMainhand() == null) {
+            if (playerIn.getHeldItemMainhand() != ItemStackTools.getEmptyStack() && playerIn.getHeldItemMainhand().getItem() instanceof ItemLaserPointer) {
+                if(playerIn.isSneaking()) {
+                    //System.out.println("unlink laser pointer!");
+                } else {
+                    ((ItemLaserPointer) playerIn.getHeldItemMainhand().getItem()).setDataStored(playerIn.getHeldItemMainhand(), writeLaserPointerNBT(base.getPos()));
+                    if(worldIn.isRemote) {
+                        playerIn.addChatComponentMessage(new TextComponentString("link " + pos.toString()));
+                    }
+                }
+            } else if (playerIn.isSneaking() && playerIn.getHeldItemMainhand() == null) {
                 worldIn.destroyBlock(pos, true);
             } else {
                 playerIn.openGui(OMTControl.instance, 1, worldIn, pos.getX(), pos.getY(), pos.getZ());
@@ -177,6 +200,15 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
             addChatMessage(playerIn, new TextComponentString(safeLocalize("status.ownership")));
         }
         return true;
+    }
+
+    public NBTTagCompound writeLaserPointerNBT(BlockPos pos) {
+        NBTTagCompound nbtTagCompound = new NBTTagCompound();
+
+        nbtTagCompound.setInteger("x", pos.getX());
+        nbtTagCompound.setInteger("y", pos.getY());
+        nbtTagCompound.setInteger("z", pos.getZ());
+        return nbtTagCompound;
     }
 
     @Override
