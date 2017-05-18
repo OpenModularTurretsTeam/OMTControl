@@ -120,13 +120,13 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         IBlockState blockState = this.getActualState(state, source, pos);
         EnumFacing facing = blockState.getValue(FACING);
-        return getBoundingBoxFromFacing(facing).offset(pos);
+        return getBoundingBoxFromFacing(facing);
     }
 
     @Override
     public AxisAlignedBB getBoundingBoxFromState(IBlockState blockState, World world, BlockPos pos) {
         EnumFacing facing = blockState.getValue(FACING);
-        return getBoundingBoxFromFacing(facing);
+        return getBoundingBoxFromFacing(facing).offset(pos);
     }
     @Override
     public boolean isFullBlock(IBlockState state) {

@@ -14,7 +14,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import omtteam.omlib.compatability.minecraft.CompatItem;
 import omtteam.omtcontrol.OMTControl;
-import omtteam.omtcontrol.blocks.BlockBaseTurretAddonMain;
+import omtteam.omtcontrol.blocks.BlockBaseAddonMain;
 import omtteam.omtcontrol.reference.OMTControlNames;
 import omtteam.omtcontrol.reference.Reference;
 import omtteam.openmodularturrets.tileentity.TurretBase;
@@ -41,7 +41,7 @@ public class ItemLaserPointer extends CompatItem {
 
     @Override
     public boolean doesSneakBypassUse(ItemStack stack, IBlockAccess world, BlockPos pos, EntityPlayer player) {
-        return world.getBlockState(pos).getBlock() instanceof BlockBaseTurretAddonMain || super.doesSneakBypassUse(stack, world, pos, player);
+        return world.getBlockState(pos).getBlock() instanceof BlockBaseAddonMain || super.doesSneakBypassUse(stack, world, pos, player);
     }
 
     @Override
