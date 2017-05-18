@@ -1,5 +1,6 @@
 package omtteam.omtcontrol.blocks;
 
+import com.sun.xml.internal.bind.v2.TODO;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.PropertyDirection;
@@ -162,17 +163,15 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
             worldIn.destroyBlock(pos, true);
             return true;
         }
+        //TODO: Remove code repetition
         TrustedPlayer trustedPlayer = PlayerUtil.getTrustedPlayer(playerIn, base);
         if (trustedPlayer != null) {
             if (base.getTrustedPlayer(playerIn.getUniqueID()).canOpenGUI) {
                 if (playerIn.getHeldItemMainhand() != ItemStackTools.getEmptyStack() && playerIn.getHeldItemMainhand().getItem() instanceof ItemLaserPointer) {
                     if(playerIn.isSneaking()) {
-                        //System.out.println("unlink laser pointer!");
+                        //TODO: Unlink laser pointer
                     } else {
-                        ((ItemLaserPointer) playerIn.getHeldItemMainhand().getItem()).setDataStored(playerIn.getHeldItemMainhand(), writeLaserPointerNBT(base.getPos()));
-                        if(worldIn.isRemote) {
-                            playerIn.addChatComponentMessage(new TextComponentString("link " + pos.toString()));
-                        }
+                        ((ItemLaserPointer) playerIn.getHeldItemMainhand().getItem()).addLinkedBase(playerIn, pos);
                     }
                 } else {
                     playerIn.openGui(OMTControl.instance, 1, worldIn, pos.getX(), pos.getY(), pos.getZ());
@@ -183,12 +182,9 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
         if (PlayerUtil.isPlayerOwner(playerIn, base)) {
             if (playerIn.getHeldItemMainhand() != ItemStackTools.getEmptyStack() && playerIn.getHeldItemMainhand().getItem() instanceof ItemLaserPointer) {
                 if(playerIn.isSneaking()) {
-                    //System.out.println("unlink laser pointer!");
+                    //TODO: Unlink laser pointer
                 } else {
-                    ((ItemLaserPointer) playerIn.getHeldItemMainhand().getItem()).setDataStored(playerIn.getHeldItemMainhand(), writeLaserPointerNBT(base.getPos()));
-                    if(worldIn.isRemote) {
-                        playerIn.addChatComponentMessage(new TextComponentString("link " + pos.toString()));
-                    }
+                    ((ItemLaserPointer) playerIn.getHeldItemMainhand().getItem()).addLinkedBase(playerIn, pos);
                 }
             } else if (playerIn.isSneaking() && playerIn.getHeldItemMainhand() == null) {
                 worldIn.destroyBlock(pos, true);
@@ -200,15 +196,6 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
             addChatMessage(playerIn, new TextComponentString(safeLocalize("status.ownership")));
         }
         return true;
-    }
-
-    public NBTTagCompound writeLaserPointerNBT(BlockPos pos) {
-        NBTTagCompound nbtTagCompound = new NBTTagCompound();
-
-        nbtTagCompound.setInteger("x", pos.getX());
-        nbtTagCompound.setInteger("y", pos.getY());
-        nbtTagCompound.setInteger("z", pos.getZ());
-        return nbtTagCompound;
     }
 
     @Override

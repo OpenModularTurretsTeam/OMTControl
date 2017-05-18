@@ -3,6 +3,7 @@ package omtteam.omtcontrol.items;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -10,6 +11,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import omtteam.omlib.compatability.minecraft.CompatItem;
@@ -17,14 +19,11 @@ import omtteam.omtcontrol.OMTControl;
 import omtteam.omtcontrol.blocks.BlockBaseAddonMain;
 import omtteam.omtcontrol.reference.OMTControlNames;
 import omtteam.omtcontrol.reference.Reference;
-import omtteam.openmodularturrets.tileentity.TurretBase;
+import omtteam.omtcontrol.tileentity.TileEntityBaseAddonMain;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Set;
-
-import static omtteam.omlib.util.GeneralUtil.getColoredBooleanLocalizationYesNo;
-import static omtteam.omlib.util.GeneralUtil.safeLocalize;
 
 /**
  * Created by Rokiyo on 15/05/2017.
@@ -49,13 +48,7 @@ public class ItemLaserPointer extends CompatItem {
     public EnumActionResult clOnItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (player.isSneaking()) {
             ItemStack stack = player.getHeldItem(hand);
-            if (stack.hasTagCompound()) {
-                Set<String> keySet = stack.getTagCompound().getKeySet();
-
-                if (keySet != null) {
-                    keySet.clear();
-                }
-            }
+            clearLinkedBases(stack);
         }
         return super.clOnItemUse(player, world, pos, hand, facing, hitX, hitY, hitZ);
     }
@@ -64,21 +57,22 @@ public class ItemLaserPointer extends CompatItem {
     protected ActionResult<ItemStack> clOnItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
         ItemStack itemStackIn = playerIn.getHeldItem(hand);
         if (playerIn.isSneaking()) {
-            if (itemStackIn.hasTagCompound()) {
-                Set<String> keySet = itemStackIn.getTagCompound().getKeySet();
-
-                if (keySet != null) {
-                    keySet.clear();
-                }
-            }
+            clearLinkedBases(itemStackIn);
         } else {
-            if(hasDataStored(itemStackIn)) {
-                NBTTagCompound nbtTagCompound = getDataStored(itemStackIn);
-                BlockPos pos = new BlockPos(nbtTagCompound.getInteger("x"),nbtTagCompound.getInteger("y"),nbtTagCompound.getInteger("z"));
-                TurretBase base = (TurretBase) worldIn.getTileEntity(pos);
-                if (base != null) {
-                    base.setAllTurretsYawPitch(playerIn.rotationYaw, playerIn.rotationPitch);
-                    base.forceShootAllTurrets();
+            if(hasLinkedBases(itemStackIn)) {
+                NBTTagList linkedBases = getLinkedBases(itemStackIn);
+
+                for (int i = 0; i < linkedBases.tagCount(); i++) {
+                    int[] blockPosArray = linkedBases.getCompoundTagAt(i).getIntArray("blockPos");
+                    BlockPos pos = new BlockPos(blockPosArray[0], blockPosArray[1], blockPosArray[2]);
+
+                    TileEntityBaseAddonMain addon = (TileEntityBaseAddonMain) worldIn.getTileEntity(pos);
+                    if (addon != null) {
+                        addon.setAllTurretsYawPitch(playerIn.rotationYaw, playerIn.rotationPitch);
+
+                        //TODO: Use the tile entity to force-fire the turrets for a few ticks, so that turret's fire rate is not limited by item's use speed.
+                        addon.forceShootAllTurrets();
+                    }
                 }
             }
 
@@ -86,21 +80,41 @@ public class ItemLaserPointer extends CompatItem {
         return super.clOnItemRightClick(worldIn, playerIn, hand);
     }
 
-    public boolean hasDataStored(ItemStack stack) {
-        return stack.hasTagCompound() && stack.getTagCompound().hasKey("data");
+    @Nonnull
+    public boolean hasLinkedBases(ItemStack stack) {
+        return stack.hasTagCompound() && stack.getTagCompound().hasKey("turretBases");
     }
 
-    public NBTTagCompound getDataStored(ItemStack stack) {
-        return stack.hasTagCompound() ? stack.getTagCompound().getCompoundTag("data") : null;
+    @Nonnull
+    public NBTTagList getLinkedBases(ItemStack stack) {
+        return stack.hasTagCompound() ? stack.getTagCompound().getTagList("turretBases", Constants.NBT.TAG_COMPOUND) : new NBTTagList();
     }
 
-    @SuppressWarnings("ConstantConditions")
-    public void setDataStored(ItemStack stack, NBTTagCompound nbtTagCompound) {
+    public void clearLinkedBases(ItemStack stack) {
         if (stack.hasTagCompound()) {
-            stack.getTagCompound().setTag("data", nbtTagCompound);
+            Set<String> keySet = stack.getTagCompound().getKeySet();
+
+            if (keySet != null) {
+                keySet.clear();
+            }
+        }
+    }
+
+    public void addLinkedBase(EntityPlayer playerIn, BlockPos pos) {
+        ItemStack stack = playerIn.getHeldItemMainhand();
+
+        NBTTagList linkedBases = getLinkedBases(stack);
+        NBTTagCompound newBase = new NBTTagCompound();
+
+        int[] blockPosArray = { pos.getX(), pos.getY(), pos.getZ() };
+        newBase.setIntArray("blockPos", blockPosArray);
+        linkedBases.appendTag(newBase);
+
+        if (stack.hasTagCompound()) {
+            stack.getTagCompound().setTag("turretBases", linkedBases);
         } else {
             NBTTagCompound tagCompound = new NBTTagCompound();
-            tagCompound.setTag("data", nbtTagCompound);
+            tagCompound.setTag("turretBases", linkedBases);
             stack.setTagCompound(tagCompound);
         }
     }
@@ -108,11 +122,9 @@ public class ItemLaserPointer extends CompatItem {
     @SideOnly(Side.CLIENT)
     @SuppressWarnings("unchecked")
     public void addInformation(ItemStack stack, EntityPlayer player, List tooltip, boolean isAdvanced) {
-        if (hasDataStored(stack)) {
-            NBTTagCompound nbtTagCompound = getDataStored(stack);
-            tooltip.add("\u00A76X: \u00A7b" + nbtTagCompound.getInteger("x"));
-            tooltip.add("\u00A76Y: \u00A7b" + nbtTagCompound.getInteger("y"));
-            tooltip.add("\u00A76Z: \u00A7b" + nbtTagCompound.getInteger("z"));
+        if(hasLinkedBases(stack)) {
+            NBTTagList linkedBases = getLinkedBases(stack);
+            tooltip.add("\u00A76Linked Bases: \u00A7b" + linkedBases.tagCount());
         }
     }
 }
