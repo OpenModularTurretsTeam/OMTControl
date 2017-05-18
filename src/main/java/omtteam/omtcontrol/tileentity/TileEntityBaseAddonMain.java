@@ -46,13 +46,17 @@ public class TileEntityBaseAddonMain extends TileEntityOwnedBlock implements ITu
 
     @Override
     public String getOwner() {
-        return TurretHeadUtil.getTurretBase(this.getWorld(), this.pos).getOwner();
+        return getBase().getOwner();
     }
 
     @Override
     public String getOwnerName() {
-        return TurretHeadUtil.getTurretBase(this.getWorld(), this.pos).getOwnerName();
+        return getBase().getOwnerName();
     }
+
+    public void setAllTurretsYawPitch(float yaw, float pitch) { getBase().setAllTurretsYawPitch(yaw, pitch); }
+
+    public int forceShootAllTurrets() { return getBase().forceShootAllTurrets(); }
 
     public TurretBase getBase() {
         return TurretHeadUtil.getTurretBase(this.getWorld(), this.pos);
