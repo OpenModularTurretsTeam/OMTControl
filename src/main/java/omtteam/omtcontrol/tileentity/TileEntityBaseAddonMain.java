@@ -58,6 +58,8 @@ public class TileEntityBaseAddonMain extends TileEntityOwnedBlock implements ITu
 
     public int forceShootAllTurrets() { return getBase().forceShootAllTurrets(); }
 
+    public void setAllTurretsForceFire(boolean state) { getBase().setAllTurretsForceFire(state); }
+
     public TurretBase getBase() {
         return TurretHeadUtil.getTurretBase(this.getWorld(), this.pos);
     }
