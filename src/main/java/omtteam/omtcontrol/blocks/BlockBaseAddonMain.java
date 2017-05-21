@@ -1,6 +1,5 @@
 package omtteam.omtcontrol.blocks;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.PropertyDirection;
@@ -13,7 +12,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -26,19 +24,17 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import omtteam.omlib.util.IHasItemBlock;
-import omtteam.omlib.util.MathUtil;
 import omtteam.omlib.util.PlayerUtil;
 import omtteam.omlib.util.TrustedPlayer;
 import omtteam.omlib.util.compat.ItemStackTools;
 import omtteam.omtcontrol.OMTControl;
 import omtteam.omtcontrol.init.ModBlocks;
-import omtteam.omtcontrol.items.blocks.ItemBlockBaseAddonMain;
 import omtteam.omtcontrol.items.ItemLaserPointer;
+import omtteam.omtcontrol.items.blocks.ItemBlockBaseAddonMain;
 import omtteam.omtcontrol.reference.OMTControlNames;
 import omtteam.omtcontrol.reference.Reference;
 import omtteam.omtcontrol.tileentity.TileEntityBaseAddonMain;
 import omtteam.openmodularturrets.blocks.BlockTurretBaseAddon;
-import omtteam.openmodularturrets.tileentity.Expander;
 import omtteam.openmodularturrets.tileentity.TurretBase;
 
 import javax.annotation.Nonnull;
@@ -129,6 +125,7 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
         EnumFacing facing = blockState.getValue(FACING);
         return getBoundingBoxFromFacing(facing).offset(pos);
     }
+
     @Override
     public boolean isFullBlock(IBlockState state) {
         return false;
@@ -168,7 +165,7 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
         if (trustedPlayer != null) {
             if (base.getTrustedPlayer(playerIn.getUniqueID()).canOpenGUI) {
                 if (playerIn.getHeldItemMainhand() != ItemStackTools.getEmptyStack() && playerIn.getHeldItemMainhand().getItem() instanceof ItemLaserPointer) {
-                    if(playerIn.isSneaking()) {
+                    if (playerIn.isSneaking()) {
                         //TODO: Unlink laser pointer
                     } else {
                         ((ItemLaserPointer) playerIn.getHeldItemMainhand().getItem()).addLinkedBase(playerIn, pos);
@@ -181,7 +178,7 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
         }
         if (PlayerUtil.isPlayerOwner(playerIn, base)) {
             if (playerIn.getHeldItemMainhand() != ItemStackTools.getEmptyStack() && playerIn.getHeldItemMainhand().getItem() instanceof ItemLaserPointer) {
-                if(playerIn.isSneaking()) {
+                if (playerIn.isSneaking()) {
                     //TODO: Unlink laser pointer
                 } else {
                     ((ItemLaserPointer) playerIn.getHeldItemMainhand().getItem()).addLinkedBase(playerIn, pos);

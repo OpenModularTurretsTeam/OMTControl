@@ -7,10 +7,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
 import omtteam.omtcontrol.init.ModBlocks;
 import omtteam.omtcontrol.init.ModItems;
 import omtteam.omtcontrol.reference.OMTControlNames;
 import omtteam.omtcontrol.reference.Reference;
+
 
 @SuppressWarnings("unused")
 @SideOnly(Side.CLIENT)
@@ -42,7 +44,9 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void preInit() {
         super.preInit();
-        registerBlockModelAsItem(ModBlocks.baseAddonMain, 0, OMTControlNames.Blocks.baseAddonMain);
+        for (int i = 0; i < 1; i++) {
+            registerBlockModelAsItem(ModBlocks.baseAddonMain, i, OMTControlNames.Blocks.baseAddonMain, "facing=north,meta=" + i);
+        }
         registerItemModel(ModItems.laserPointer, 0);
     }
 
