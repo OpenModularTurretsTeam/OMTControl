@@ -14,8 +14,7 @@ import omtteam.omtcontrol.handler.ConfigHandler;
 import omtteam.omtcontrol.handler.GuiHandler;
 import omtteam.omtcontrol.proxy.CommonProxy;
 import omtteam.omtcontrol.reference.Reference;
-
-import java.util.logging.Logger;
+import org.apache.logging.log4j.Logger;;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = "[1.9,1.12)", dependencies = Reference.DEPENDENCIES)
 public class OMTControl {
@@ -37,7 +36,7 @@ public class OMTControl {
     @SuppressWarnings("unused")
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        logger = Logger.getLogger(Reference.NAME);
+        logger = event.getModLog();
         ConfigHandler.init(event.getSuggestedConfigurationFile());
         creativeTab = OMTControlTab.getInstance();
         proxy.preInit();

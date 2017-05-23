@@ -18,7 +18,7 @@ class MekanismRecipeHandler {
         ItemStack controlCircuit;
 
 
-		/* ModItems */
+		/* OMModItems */
         ironEnriched = new ItemStack(GameRegistry.findItem(Mek, "EnrichedIron"), 1);
         alloyEnriched = new ItemStack(GameRegistry.findItem(Mek, "EnrichedAlloy"), 1);
         alloyReinforced = new ItemStack(GameRegistry.findItem(Mek, "ReinforcedAlloy"), 1);

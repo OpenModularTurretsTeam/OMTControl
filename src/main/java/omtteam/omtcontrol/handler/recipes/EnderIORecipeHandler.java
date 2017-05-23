@@ -21,7 +21,7 @@ class EnderIORecipeHandler {
         ItemStack conductiveIron;
         ItemStack soularium;
         
-		/* ModItems */
+		/* OMModItems */
 
         Block capBankBlock = GameRegistry.findBlock("EnderIO", "blockCapBank");
         capacitorBank = new ItemStack(capBankBlock, 1, 2);
