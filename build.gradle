@@ -168,6 +168,7 @@ publishing {
         mavenJava(MavenPublication) {
             groupId config.group_prefix
             artifactId config.mod_id
+            version config.minecraft_version + "-" + project.version
             artifact jar
             artifact sourceJar
             artifact deobfJar
