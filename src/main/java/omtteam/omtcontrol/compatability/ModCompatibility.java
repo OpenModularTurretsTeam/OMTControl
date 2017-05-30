@@ -56,7 +56,7 @@ public class ModCompatibility {
 
     public static void performModCompat() {
         FMLInterModComms.sendMessage("Waila", "register",
-                "omtteam.omtcontrol.compatability.WailaTileHandler.callbackRegister");
+                "omtteam.omtcontrol.compatability.WailaTurretBaseHandler.callbackRegister");
         addVersionCheckerInfo();
         if (ComputerCraftLoaded) {
             registerCCCompat();
