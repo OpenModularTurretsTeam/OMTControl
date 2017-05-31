@@ -12,6 +12,7 @@ import omtteam.openmodularturrets.items.blocks.ItemBlockLaserTurret;
 public class OMTControlTab extends CompatCreativeTabs {
     private static OMTControlTab instance;
 
+    @SuppressWarnings("SameParameterValue")
     private OMTControlTab(String label) {
         super(label);
     }
