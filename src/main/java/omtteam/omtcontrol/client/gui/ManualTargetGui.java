@@ -180,8 +180,8 @@ public class ManualTargetGui extends GuiContainer implements IHasTooltips {
         FontRenderer fontRenderer = Minecraft.getMinecraft().fontRendererObj;
         ArrayList turretInfo = new ArrayList();
         turretInfo.add("\u00A73" + safeLocalize(OMTNames.Localizations.GUI.BASE) + ":");
-        turretInfo.add("\u00A76" + safeLocalize(OMTNames.Localizations.GUI.OWNER) + ": \u00A7f" + base.getOwnerName());
-        turretInfo.add("\u00A76" + safeLocalize(OMTNames.Localizations.GUI.ACTIVE) + ": " + (getColoredBooleanLocalizationYesNo(base.isActive())));
+        turretInfo.add("\u00A76" + safeLocalize(OMLibNames.Localizations.GUI.OWNER) + ": \u00A7f" + base.getOwnerName());
+        turretInfo.add("\u00A76" + safeLocalize(OMLibNames.Localizations.GUI.ACTIVE) + ": " + (getColoredBooleanLocalizationYesNo(base.isActive())));
         turretInfo.add("\u00A76" + safeLocalize(OMTNames.Localizations.GUI.ATTACK_MOBS) + ": " + getColoredBooleanLocalizationYesNo(base.isAttacksMobs()));
         turretInfo.add("\u00A76" + safeLocalize(OMTNames.Localizations.GUI.ATTACK_NEUTRALS) + ": " + getColoredBooleanLocalizationYesNo(base.isAttacksNeutrals()));
         turretInfo.add("\u00A76" + safeLocalize(OMTNames.Localizations.GUI.ATTACK_PLAYERS) + ": " + getColoredBooleanLocalizationYesNo(base.isAttacksPlayers()));
@@ -194,7 +194,7 @@ public class ManualTargetGui extends GuiContainer implements IHasTooltips {
             turretInfo.add("\u00A76" + safeLocalize(OMTNames.Localizations.GUI.PITCH) + ": \u00A77" + getPitchFromXYXZ(turret.getRotationXY(), turret.getRotationXZ()));
             turretInfo.add("\u00A76" + safeLocalize(OMTNames.Localizations.GUI.AUTO_FIRE) + ": " + getColoredBooleanLocalizationYesNo(turret.getAutoFire()));
 
-            turretInfo.add("\u00A76" + safeLocalize(OMLibNames.Localizations.FACING) + ": \u00A72" + selectedTurretFacing.toString());
+            turretInfo.add("\u00A76" + safeLocalize(OMLibNames.Localizations.GUI.FACING) + ": \u00A72" + selectedTurretFacing.toString());
         } else {
             turretInfo.add("\u00A74" + safeLocalize(OMTNames.Localizations.GUI.NO_TURRET));
         }

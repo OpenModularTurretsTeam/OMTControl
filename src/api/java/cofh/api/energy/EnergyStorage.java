@@ -14,6 +14,7 @@ public class EnergyStorage implements IEnergyStorage {
     protected int maxReceive;
     protected int maxExtract;
 
+    @SuppressWarnings("SameParameterValue")
     public EnergyStorage(int capacity) {
 
         this(capacity, capacity, capacity);
@@ -93,7 +94,7 @@ public class EnergyStorage implements IEnergyStorage {
      * This function is included to allow for server to client sync. Do not call this externally to the containing Tile Entity, as not all IEnergyHandlers
      * are guaranteed to have it.
      *
-     * @param energy
+     * @param energy energy stored.
      */
     public void setEnergyStored(int energy) {
 
@@ -110,7 +111,7 @@ public class EnergyStorage implements IEnergyStorage {
      * This function is included to allow the containing tile to directly and efficiently modify the energy contained in the OMEnergyStorage. Do not rely on this
      * externally, as not all IEnergyHandlers are guaranteed to have it.
      *
-     * @param energy
+     * @param energy to add or substract from the stored energy.
      */
     public void modifyEnergyStored(int energy) {
 
