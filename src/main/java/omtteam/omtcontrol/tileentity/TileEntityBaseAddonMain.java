@@ -3,8 +3,8 @@ package omtteam.omtcontrol.tileentity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import omtteam.omlib.tileentity.TileEntityOwnedBlock;
+import omtteam.openmodularturrets.api.ITurretBaseAddonTileEntity;
 import omtteam.openmodularturrets.tileentity.TurretBase;
-import omtteam.openmodularturrets.util.ITurretBaseAddonTileEntity;
 import omtteam.openmodularturrets.util.TurretHeadUtil;
 
 import static omtteam.openmodularturrets.util.TurretHeadUtil.getTurretBaseFacing;
