@@ -65,6 +65,12 @@
           "top": "omtcontrol:blocks/manual_target_top",
           "side": "omtcontrol:blocks/manual_target_side"
         }
+	  },
+	  "1": {
+		"textures": {
+		  "top": "omtcontrol:blocks/manual_target_top",
+		  "side": "omtcontrol:blocks/manual_target_side"
+		}
       }
     }
   }
