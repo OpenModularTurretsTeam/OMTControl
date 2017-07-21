@@ -50,7 +50,7 @@ import static omtteam.openmodularturrets.blocks.BlockExpander.getBoundingBoxFrom
  * This Class
  */
 public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItemBlock {
-    private static final PropertyInteger META = PropertyInteger.create("meta", 0, 9);
+    private static final PropertyInteger META = PropertyInteger.create("meta", 0, 1);
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
     public BlockBaseAddonMain() {

@@ -3,7 +3,7 @@ package omtteam.omtcontrol.client.gui;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import omtteam.omlib.compatability.minecraft.CompatCreativeTabs;
+import omtteam.omlib.compatibility.minecraft.CompatCreativeTabs;
 import omtteam.omtcontrol.reference.Reference;
 import omtteam.openmodularturrets.init.ModBlocks;
 import omtteam.openmodularturrets.items.blocks.ItemBlockLaserTurret;

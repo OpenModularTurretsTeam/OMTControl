@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import omtteam.omlib.compatability.minecraft.CompatItem;
+import omtteam.omlib.compatibility.minecraft.CompatItem;
 import omtteam.omtcontrol.OMTControl;
 import omtteam.omtcontrol.blocks.BlockBaseAddonMain;
 import omtteam.omtcontrol.reference.OMTControlNames;
