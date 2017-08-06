@@ -34,6 +34,7 @@ import omtteam.omtcontrol.items.blocks.ItemBlockBaseAddonMain;
 import omtteam.omtcontrol.reference.OMTControlNames;
 import omtteam.omtcontrol.reference.Reference;
 import omtteam.omtcontrol.tileentity.TileEntityBaseAddonMain;
+import omtteam.openmodularturrets.blocks.BlockExpander;
 import omtteam.openmodularturrets.blocks.BlockTurretBaseAddon;
 import omtteam.openmodularturrets.tileentity.TurretBase;
 
@@ -43,7 +44,6 @@ import java.util.List;
 
 import static omtteam.omlib.util.GeneralUtil.safeLocalize;
 import static omtteam.omlib.util.compat.ChatTools.addChatMessage;
-import static omtteam.openmodularturrets.blocks.BlockExpander.getBoundingBoxFromFacing;
 
 /**
  * Created by Keridos on 09/02/17.
@@ -117,14 +117,15 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         IBlockState blockState = this.getActualState(state, source, pos);
         EnumFacing facing = blockState.getValue(FACING);
-        return getBoundingBoxFromFacing(facing);
+        return BlockExpander.getBoundingBoxFromFacing(facing);
     }
 
+
     @Override
-    public AxisAlignedBB getBoundingBoxFromState(IBlockState blockState, World world, BlockPos pos) {
-        EnumFacing facing = blockState.getValue(FACING);
-        return getBoundingBoxFromFacing(facing).offset(pos);
+    public AxisAlignedBB getBoundingBoxFromFacing(EnumFacing facing, World world, BlockPos pos) {
+        return BlockExpander.getBoundingBoxFromFacing(facing).offset(pos);
     }
+
 
     @Override
     public boolean isFullBlock(IBlockState state) {

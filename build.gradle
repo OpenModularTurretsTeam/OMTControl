@@ -138,6 +138,11 @@ configure(allprojects.findAll {it.name == 'OpenModularPassiveDefense'}) {
     ompd_local = true
 }
 
+def oml_local = false
+configure(allprojects.findAll {it.name == 'OpenModularLighting'}) {
+    oml_local = true
+}
+
 dependencies {
     deobfCompile "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}"
     compileOnly "igwmod:IGW-Mod-${config.igwmod_version}:userdev"
@@ -159,6 +164,10 @@ dependencies {
     if (ompd_local) {
         runtime project(':OpenModularPassiveDefense')
     }
+    if (oml_local) {
+        runtime project(':OpenModularLighting')
+    }
+
 
     runtime "com.enderio:EnderIO:${config.minecraft_version}-${config.enderio_version}"
     runtime "com.enderio.core:EnderCore:${config.minecraft_version}-${config.endercore_version}"
