@@ -52,7 +52,7 @@ import static omtteam.omlib.util.compat.ChatTools.addChatMessage;
  */
 public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItemBlock {
     public static final int SUBBLOCK_COUNT = 2;
-    private static final PropertyInteger META = PropertyInteger.create("meta", 0, SUBBLOCK_COUNT);
+    private static final PropertyInteger META = PropertyInteger.create("meta", 0, SUBBLOCK_COUNT - 1);
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
     public  BlockBaseAddonMain() {
