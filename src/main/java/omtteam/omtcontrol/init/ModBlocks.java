@@ -5,8 +5,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import omtteam.omtcontrol.blocks.BlockBaseAddonMain;
 import omtteam.omtcontrol.reference.OMTControlNames;
 import omtteam.omtcontrol.tileentity.TileEntityBaseAddonMain;
-import omtteam.openmodularturrets.reference.OMTNames;
-import omtteam.openmodularturrets.tileentity.TurretBase;
+import omtteam.omtcontrol.tileentity.TileEntityPlayerDefenseModule;
 
 import static omtteam.omlib.util.InitHelper.registerBlock;
 
@@ -21,5 +20,6 @@ public class ModBlocks {
 
     public static void initTileEntities() {
         GameRegistry.registerTileEntity(TileEntityBaseAddonMain.class, OMTControlNames.Blocks.baseAddonMain);
+        GameRegistry.registerTileEntity(TileEntityPlayerDefenseModule.class, OMTControlNames.Blocks.PLAYER_DEFENSE_MODULE);
     }
 }
