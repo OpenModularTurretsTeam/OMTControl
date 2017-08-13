@@ -34,6 +34,7 @@ import omtteam.omtcontrol.items.blocks.ItemBlockBaseAddonMain;
 import omtteam.omtcontrol.reference.OMTControlNames;
 import omtteam.omtcontrol.reference.Reference;
 import omtteam.omtcontrol.tileentity.TileEntityBaseAddonMain;
+import omtteam.omtcontrol.tileentity.TileEntityPlayerDefenseModule;
 import omtteam.openmodularturrets.blocks.BlockExpander;
 import omtteam.openmodularturrets.blocks.BlockTurretBaseAddon;
 import omtteam.openmodularturrets.tileentity.TurretBase;
@@ -50,10 +51,11 @@ import static omtteam.omlib.util.compat.ChatTools.addChatMessage;
  * This Class
  */
 public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItemBlock {
-    private static final PropertyInteger META = PropertyInteger.create("meta", 0, 1);
+    public static final int SUBBLOCK_COUNT = 2;
+    private static final PropertyInteger META = PropertyInteger.create("meta", 0, SUBBLOCK_COUNT - 1);
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
-    public BlockBaseAddonMain() {
+    public  BlockBaseAddonMain() {
         super();
         this.setCreativeTab(OMTControl.creativeTab);
         this.setHardness(2.0F);
@@ -99,7 +101,13 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
     @Nonnull
     @ParametersAreNonnullByDefault
     public TileEntity createTileEntity(World world, IBlockState state) {
-        return new TileEntityBaseAddonMain(state.getValue(META));
+        switch (state.getValue(META)){
+            case 1:
+                return new TileEntityPlayerDefenseModule();
+            default:
+                return new TileEntityBaseAddonMain(state.getValue(META));
+        }
+
     }
 
     @Override
@@ -161,37 +169,37 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
             worldIn.destroyBlock(pos, true);
             return true;
         }
-        //TODO: Remove code repetition
-        TrustedPlayer trustedPlayer = PlayerUtil.getTrustedPlayer(playerIn, base);
-        if (trustedPlayer != null) {
-            if (base.getTrustedPlayer(playerIn.getUniqueID()).canOpenGUI) {
-                if (playerIn.getHeldItemMainhand() != ItemStackTools.getEmptyStack() && playerIn.getHeldItemMainhand().getItem() instanceof ItemLaserPointer) {
-                    if (playerIn.isSneaking()) {
-                        //TODO: Unlink laser pointer
-                    } else {
-                        ((ItemLaserPointer) playerIn.getHeldItemMainhand().getItem()).addLinkedBase(playerIn, pos);
-                    }
-                } else {
-                    playerIn.openGui(OMTControl.instance, 1, worldIn, pos.getX(), pos.getY(), pos.getZ());
-                    return true;
+        if(state.getValue(META) == 0) {
+            //TODO: Remove code repetition
+            TrustedPlayer trustedPlayer = PlayerUtil.getTrustedPlayer(playerIn, base);
+            if (trustedPlayer != null) {
+                if (base.getTrustedPlayer(playerIn.getUniqueID()).canOpenGUI) {
+                    handleMeta0(playerIn, pos, worldIn, false);
                 }
             }
-        }
-        if (PlayerUtil.isPlayerOwner(playerIn, base)) {
-            if (playerIn.getHeldItemMainhand() != ItemStackTools.getEmptyStack() && playerIn.getHeldItemMainhand().getItem() instanceof ItemLaserPointer) {
-                if (playerIn.isSneaking()) {
-                    //TODO: Unlink laser pointer
-                } else {
-                    ((ItemLaserPointer) playerIn.getHeldItemMainhand().getItem()).addLinkedBase(playerIn, pos);
-                }
-            } else if (playerIn.isSneaking() && playerIn.getHeldItemMainhand() == null) {
-                worldIn.destroyBlock(pos, true);
+            boolean isOwner = PlayerUtil.isPlayerOwner(playerIn, base);
+            if (isOwner) {
+                handleMeta0(playerIn, pos, worldIn, isOwner);
             } else {
-                playerIn.openGui(OMTControl.instance, 1, worldIn, pos.getX(), pos.getY(), pos.getZ());
-                return true;
+                addChatMessage(playerIn, new TextComponentString(safeLocalize("status.ownership")));
             }
+            return true;
+        }
+        return false;
+    }
+
+    private boolean handleMeta0(EntityPlayer playerIn, BlockPos pos, World worldIn, boolean isOwner){
+        if (playerIn.getHeldItemMainhand() != ItemStackTools.getEmptyStack() && playerIn.getHeldItemMainhand().getItem() instanceof ItemLaserPointer) {
+            if (playerIn.isSneaking()) {
+                //TODO: Unlink laser pointer
+            } else {
+                ((ItemLaserPointer) playerIn.getHeldItemMainhand().getItem()).addLinkedBase(playerIn, pos);
+            }
+        } else if (isOwner && playerIn.isSneaking() && playerIn.getHeldItemMainhand() == null) {
+            worldIn.destroyBlock(pos, true);
         } else {
-            addChatMessage(playerIn, new TextComponentString(safeLocalize("status.ownership")));
+            playerIn.openGui(OMTControl.instance, 1, worldIn, pos.getX(), pos.getY(), pos.getZ());
+            return true;
         }
         return true;
     }
@@ -206,7 +214,7 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
     @SuppressWarnings("unchecked")
     @ParametersAreNonnullByDefault
     public void clGetSubBlocks(Item item, CreativeTabs tab, List subItems) {
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < SUBBLOCK_COUNT; i++) {
             subItems.add(new ItemStack(ModBlocks.baseAddonMain, 1, i));
         }
     }

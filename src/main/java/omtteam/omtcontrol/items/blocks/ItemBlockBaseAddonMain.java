@@ -6,13 +6,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
+import omtteam.omtcontrol.blocks.BlockBaseAddonMain;
 import omtteam.omtcontrol.init.ModBlocks;
 import omtteam.omtcontrol.reference.OMTControlNames;
+import omtteam.omtcontrol.reference.OMTControlNames.Blocks;
 import omtteam.omtcontrol.reference.Reference;
-import omtteam.openmodularturrets.handler.ConfigHandler;
-
 import omtteam.openmodularturrets.items.blocks.ItemBlockBaseAddon;
-
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -33,13 +32,14 @@ public class ItemBlockBaseAddonMain extends ItemBlockBaseAddon {
     }
 
     private final static String[] subNames = {
-            OMTControlNames.Blocks.manualTarget
+            OMTControlNames.Blocks.manualTarget,
+            Blocks.PLAYER_DEFENSE_MODULE
     };
 
     @Override
     @ParametersAreNonnullByDefault
     public void clGetSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < BlockBaseAddonMain.SUBBLOCK_COUNT; i++) {
             subItems.add(new ItemStack(ModBlocks.baseAddonMain, 1, i));
         }
     }

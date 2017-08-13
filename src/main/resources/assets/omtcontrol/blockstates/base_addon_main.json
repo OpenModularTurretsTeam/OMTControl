@@ -4,60 +4,18 @@
     "model": "openmodularturrets:expander",
     "transform": "forge:default-block"
   },
-  "variants": {
-    "normal": [
-      {}
-    ],
-    "inventory": [
-      {}
-    ],
-    "facing": {
-      "down": {
-        "transform": {
-          "rotation": [
-            {
-              "x": 270
-            }
-          ]
-        }
-      },
-      "up": {
-        "transform": {
-          "rotation": [
-            {
-              "x": 90
-            }
-          ]
-        }
-      },
+  "variants":
+  {
+    "normal": [{}],
+    "inventory": [{}],
+    "facing":
+    {
+      "down": {"transform": {"rotation": [{"x": 270}]}},
+      "up": {"transform": {"rotation": [{"x": 90}]}},
       "north": {},
-      "south": {
-        "transform": {
-          "rotation": [
-            {
-              "y": 180
-            }
-          ]
-        }
-      },
-      "west": {
-        "transform": {
-          "rotation": [
-            {
-              "y": 90
-            }
-          ]
-        }
-      },
-      "east": {
-        "transform": {
-          "rotation": [
-            {
-              "y": 270
-            }
-          ]
-        }
-      }
+      "south": {"transform": {"rotation": [{"y": 180}]}},
+      "west": {"transform": {"rotation": [{"y": 90}]}},
+      "east": {"transform": {"rotation": [{"y": 270}]}}
     },
     "meta": {
       "0": {
@@ -68,8 +26,8 @@
 	  },
 	  "1": {
 		"textures": {
-		  "top": "omtcontrol:blocks/manual_target_top",
-		  "side": "omtcontrol:blocks/manual_target_side"
+		  "top": "omtcontrol:blocks/player_defence_module",
+		  "side": "omtcontrol:blocks/player_defence_module_side"
 		}
       }
     }
