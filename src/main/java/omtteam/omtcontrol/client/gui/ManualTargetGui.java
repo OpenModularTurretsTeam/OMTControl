@@ -32,8 +32,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static omtteam.omlib.util.GeneralUtil.*;
-import static omtteam.omlib.util.MathUtil.getPitchFromXYXZ;
-import static omtteam.omlib.util.MathUtil.getYawFromXYXZ;
 
 /**
  * Created by Keridos on 09/02/17.
@@ -190,8 +188,8 @@ public class ManualTargetGui extends GuiContainer implements IHasTooltips {
             TurretHead turret = turrets.get(selectedTurretFacing);
             turretInfo.add("\u00A73" + safeLocalize(OMTNames.Localizations.GUI.TURRET) + ":");
             turretInfo.add("\u00A76" + safeLocalize(OMTNames.Localizations.GUI.TYPE) + ": \u00A72" + safeLocalizeBlockName(turret.getBlockType().getRegistryName().toString()).replaceAll(" Turret", ""));
-            turretInfo.add("\u00A76" + safeLocalize(OMTNames.Localizations.GUI.YAW) + ": \u00A77" + getYawFromXYXZ(turret.getRotationXY(), turret.getRotationXZ()));
-            turretInfo.add("\u00A76" + safeLocalize(OMTNames.Localizations.GUI.PITCH) + ": \u00A77" + getPitchFromXYXZ(turret.getRotationXY(), turret.getRotationXZ()));
+            turretInfo.add("\u00A76" + safeLocalize(OMTNames.Localizations.GUI.YAW) + ": \u00A77" + turret.getYaw());
+            turretInfo.add("\u00A76" + safeLocalize(OMTNames.Localizations.GUI.PITCH) + ": \u00A77" + turret.getPitch());
             turretInfo.add("\u00A76" + safeLocalize(OMTNames.Localizations.GUI.AUTO_FIRE) + ": " + getColoredBooleanLocalizationYesNo(turret.getAutoFire()));
 
             turretInfo.add("\u00A76" + safeLocalize(OMLibNames.Localizations.GUI.FACING) + ": \u00A72" + selectedTurretFacing.toString());
