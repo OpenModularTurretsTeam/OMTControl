@@ -9,9 +9,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import omtteam.openmodularturrets.tileentity.turrets.TurretHead;
 
-import static omtteam.omlib.util.MathUtil.getRotationXYFromYawPitch;
-import static omtteam.omlib.util.MathUtil.getRotationXZFromYawPitch;
-
 
 @SuppressWarnings("unused")
 public class MessageSetYawPitch implements IMessage {
@@ -31,8 +28,8 @@ public class MessageSetYawPitch implements IMessage {
                 World world = ctx.getServerHandler().playerEntity.getEntityWorld();
                 TurretHead turret = (TurretHead) world.getTileEntity(new BlockPos(message.getX(), message.getY(), message.getZ()));
 
-                turret.setRotationXY(getRotationXYFromYawPitch(message.yaw, message.pitch));
-                turret.setRotationXZ(getRotationXZFromYawPitch(message.yaw, message.pitch));
+                turret.setPitch(message.pitch);
+                turret.setYaw(message.yaw);
             });
             return null;
         }
