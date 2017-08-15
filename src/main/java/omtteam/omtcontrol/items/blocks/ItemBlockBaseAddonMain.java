@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import omtteam.omtcontrol.blocks.BlockBaseAddonMain;
 import omtteam.omtcontrol.init.ModBlocks;
-import omtteam.omtcontrol.reference.OMTControlNames;
 import omtteam.omtcontrol.reference.OMTControlNames.Blocks;
 import omtteam.omtcontrol.reference.Reference;
 import omtteam.openmodularturrets.items.blocks.ItemBlockBaseAddon;
@@ -28,11 +27,11 @@ public class ItemBlockBaseAddonMain extends ItemBlockBaseAddon {
     public ItemBlockBaseAddonMain(Block block) {
         super(block);
         setHasSubtypes(true);
-        this.setRegistryName(Reference.MOD_ID, OMTControlNames.Blocks.baseAddonMain);
+        this.setRegistryName(Reference.MOD_ID, Blocks.baseAddonMain);
     }
 
     private final static String[] subNames = {
-            OMTControlNames.Blocks.manualTarget,
+            Blocks.manualTarget,
             Blocks.PLAYER_DEFENSE_MODULE
     };
 
@@ -68,6 +67,9 @@ public class ItemBlockBaseAddonMain extends ItemBlockBaseAddon {
                 tooltip.add(TextFormatting.WHITE + safeLocalize("tooltip.base_addon_main.manual_target3") + " 4.");
                 tooltip.add("");
                 tooltip.add(TextFormatting.DARK_GRAY + safeLocalize("flavour.base_addon_main.manual_target"));
+                return;
+            case 1:
+                //TODO: Write tooltips for Player Defense Module
         }
     }
 }
