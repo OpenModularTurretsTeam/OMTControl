@@ -13,6 +13,7 @@ public class OMTControlNames {
 
     public static class Items {
         public static final String laserPointer = "laser_pointer";
+        public static final String REMOTE_TURRET_CONFIG = "remote_turret_config";
     }
 
     public static class Localizations {
