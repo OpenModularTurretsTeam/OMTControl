@@ -1,12 +1,14 @@
 package omtteam.omtcontrol.tileentity;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import omtteam.omlib.tileentity.EnumMachineMode;
 import omtteam.omlib.util.PlayerUtil;
 import omtteam.openmodularturrets.tileentity.TurretBase;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -24,16 +26,19 @@ public class TileEntityPlayerDefenseModule extends TileEntityBaseAddonMain imple
         // Get base on first update. Probably reset by world reload.
         if(base == null){
             base = getBase();
-            isBaseActive = base.isActive();
-            originalMode = base.getMode();
+            if(base != null){
+                isBaseActive = base.isActive();
+                originalMode = base.getMode();
+            }
         }
 
+        //If the base is already active, no need to update
         if(!isBaseActive) {
             ticks++;
 
+            //Random tick update rate of 20...
             if (ticks % 20 == 0) {
                 if(getWorld().isAnyPlayerWithinRangeAt(base.getPos().getX(), base.getPos().getY(), base.getPos().getZ(), base.getCurrentMaxRange())) {
-                    //System.out.println("INRANGE");
                     if (shouldProtectPlayer()) {
                         base.setMode(EnumMachineMode.ALWAYS_ON);
                     }
@@ -44,15 +49,36 @@ public class TileEntityPlayerDefenseModule extends TileEntityBaseAddonMain imple
         }
     }
 
+    /**
+     * Given the location of this tile, find if there are any active players within it's range, and check if the
+     * turret should defend them. If the player is trusted on the turret OR this is the owner, return true. Otherwise
+     * return false.
+     * Note: this could start lag if enough players are within range.
+     * @return bool, if any players in range should be protected
+     */
     private boolean shouldProtectPlayer(){
+        // Create an AABB that matches the world.isAnyPlayerWithinRangeAt call.
         AxisAlignedBB aabb = new AxisAlignedBB(getPos()).expand(base.getCurrentMaxRange(), base.getCurrentMaxRange(), base.getCurrentMaxRange());
+        // Grab all players within that AABB
         List players = getWorld().getEntitiesWithinAABB(EntityPlayer.class, aabb);
-        while(players.iterator().hasNext()){
-            EntityPlayer player = (EntityPlayer) players.iterator().next();
+        // Find if one of the players should be protected.
+        Iterator iterator = players.iterator();
+        while(iterator.hasNext()){
+            EntityPlayer player = (EntityPlayer) iterator.next();
             if(PlayerUtil.isPlayerOwner(player, getBase()) || PlayerUtil.getTrustedPlayer(player, getBase()) != null){
                 return true;
             }
         }
         return false;
+    }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound nbtTagCompound) {
+        // This is some hack-job code. Basically, on world unload, the block should reset the turret's
+        // original Mode. if it doesn't and a player is still in the area, the turret will not shut off.
+        if(base != null){
+            base.setMode(originalMode);
+        }
+        return super.writeToNBT(nbtTagCompound);
     }
 }

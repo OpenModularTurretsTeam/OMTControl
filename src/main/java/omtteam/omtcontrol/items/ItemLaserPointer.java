@@ -95,7 +95,7 @@ public class ItemLaserPointer extends CompatItem {
 
                 TileEntityBaseAddonMain addon = (TileEntityBaseAddonMain) worldIn.getTileEntity(pos);
                 if (addon != null) {
-                    addon.setAllTurretsYawPitch(playerIn.rotationYaw, playerIn.rotationPitch);
+                    addon.setAllTurretsYawPitch(playerIn.rotationYawHead + 90, playerIn.rotationPitch + 90);
                 }
             }
         }
