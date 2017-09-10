@@ -2,10 +2,13 @@ package omtteam.omtcontrol.tileentity;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import omtteam.omlib.tileentity.TileEntityBase;
 import omtteam.omlib.tileentity.TileEntityOwnedBlock;
 import omtteam.openmodularturrets.api.ITurretBaseAddonTileEntity;
 import omtteam.openmodularturrets.tileentity.TurretBase;
 import omtteam.openmodularturrets.util.TurretHeadUtil;
+
+import javax.annotation.Nonnull;
 
 import static omtteam.openmodularturrets.util.TurretHeadUtil.getTurretBaseFacing;
 
@@ -13,7 +16,7 @@ import static omtteam.openmodularturrets.util.TurretHeadUtil.getTurretBaseFacing
  * Created by Keridos on 17/05/17.
  * This Class
  */
-public class TileEntityBaseAddonMain extends TileEntityOwnedBlock implements ITurretBaseAddonTileEntity {
+public class TileEntityBaseAddonMain extends TileEntityBase implements ITurretBaseAddonTileEntity {
     private int meta;
     private EnumFacing orientation;
 
@@ -44,14 +47,10 @@ public class TileEntityBaseAddonMain extends TileEntityOwnedBlock implements ITu
         }
     }
 
+    @Nonnull
     @Override
-    public String getOwner() {
-        return getBase().getOwner();
-    }
-
-    @Override
-    public String getOwnerName() {
-        return getBase().getOwnerName();
+    public TileEntityOwnedBlock getLinkedBlock() {
+        return getBase();
     }
 
     public void setAllTurretsYawPitch(float yaw, float pitch) { getBase().setAllTurretsYawPitch(yaw, pitch); }
