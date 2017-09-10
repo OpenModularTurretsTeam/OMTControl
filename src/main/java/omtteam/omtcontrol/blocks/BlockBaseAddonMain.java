@@ -114,8 +114,6 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         TileEntityBaseAddonMain te = (TileEntityBaseAddonMain) worldIn.getTileEntity(pos);
         if (te != null) {
-            te.setOwnerName(te.getOwnerName());
-            te.setOwner(te.getOwner());
             te.setSide();
         }
     }
