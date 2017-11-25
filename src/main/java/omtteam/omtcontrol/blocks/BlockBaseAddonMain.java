@@ -2,6 +2,7 @@ package omtteam.omtcontrol.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
@@ -35,7 +36,7 @@ import omtteam.omtcontrol.reference.OMTControlNames;
 import omtteam.omtcontrol.reference.Reference;
 import omtteam.omtcontrol.tileentity.TileEntityBaseAddonMain;
 import omtteam.omtcontrol.tileentity.TileEntityPlayerDefenseModule;
-import omtteam.openmodularturrets.blocks.BlockExpander;
+import omtteam.openmodularturrets.blocks.BlockBaseAddon;
 import omtteam.openmodularturrets.blocks.BlockTurretBaseAddon;
 import omtteam.openmodularturrets.tileentity.TurretBase;
 
@@ -56,7 +57,7 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
     public  BlockBaseAddonMain() {
-        super();
+        super(Material.ROCK);
         this.setCreativeTab(OMTControl.creativeTab);
         this.setHardness(2.0F);
         this.setSoundType(SoundType.STONE);
@@ -123,13 +124,13 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         IBlockState blockState = this.getActualState(state, source, pos);
         EnumFacing facing = blockState.getValue(FACING);
-        return BlockExpander.getBoundingBoxFromFacing(facing);
+        return BlockBaseAddon.getBoundingBoxFromFacing(facing);
     }
 
 
     @Override
     public AxisAlignedBB getBoundingBoxFromFacing(EnumFacing facing, World world, BlockPos pos) {
-        return BlockExpander.getBoundingBoxFromFacing(facing).offset(pos);
+        return BlockBaseAddon.getBoundingBoxFromFacing(facing).offset(pos);
     }
 
 

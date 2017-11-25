@@ -10,7 +10,7 @@ import omtteam.omtcontrol.blocks.BlockBaseAddonMain;
 import omtteam.omtcontrol.init.ModBlocks;
 import omtteam.omtcontrol.reference.OMTControlNames.Blocks;
 import omtteam.omtcontrol.reference.Reference;
-import omtteam.openmodularturrets.items.blocks.ItemBlockBaseAddon;
+import omtteam.openmodularturrets.items.blocks.AbstractItemBlockBaseAddon;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -23,7 +23,7 @@ import static omtteam.omlib.util.GeneralUtil.safeLocalize;
  * Created by Keridos on 17/05/17.
  * This Class
  */
-public class ItemBlockBaseAddonMain extends ItemBlockBaseAddon {
+public class ItemBlockBaseAddonMain extends AbstractItemBlockBaseAddon {
     public ItemBlockBaseAddonMain(Block block) {
         super(block);
         setHasSubtypes(true);
