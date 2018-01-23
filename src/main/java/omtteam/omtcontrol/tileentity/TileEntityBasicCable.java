@@ -8,6 +8,8 @@ import omtteam.openmodularturrets.api.network.INetworkCable;
 import omtteam.openmodularturrets.api.network.INetworkTile;
 import omtteam.openmodularturrets.api.network.OMTNetwork;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,25 +23,12 @@ public class TileEntityBasicCable extends TileEntityBase implements INetworkCabl
         return tile instanceof INetworkTile || tile instanceof INetworkCable;
     }
 
-    @Override
-    public List<INetworkTile> getConnectedDevices() {
-        ArrayList<INetworkTile> networkTiles = new ArrayList<>();
-        for(EnumFacing facing : EnumFacing.VALUES) {
-            BlockPos pos = this.getPos().offset(facing);
-            TileEntity tile = this.getWorld().getTileEntity(pos);
-            if(tile instanceof INetworkTile) {
-                networkTiles.add((INetworkTile) networkTiles);
-            }
-        }
-        return networkTiles;
-    }
-
     private List<INetworkCable> getConnectedCables() {
         ArrayList<INetworkCable> networkTiles = new ArrayList<>();
-        for(EnumFacing facing : EnumFacing.VALUES) {
+        for (EnumFacing facing : EnumFacing.VALUES) {
             BlockPos pos = this.getPos().offset(facing);
             TileEntity tile = this.getWorld().getTileEntity(pos);
-            if(tile instanceof INetworkCable) {
+            if (tile instanceof INetworkCable) {
                 networkTiles.add((INetworkCable) networkTiles);
             }
         }
@@ -48,36 +37,43 @@ public class TileEntityBasicCable extends TileEntityBase implements INetworkCabl
 
     public void createNetwork() {
         List<INetworkCable> devices = this.getConnectedCables();
-        if(!devices.isEmpty()) {
+        if (!devices.isEmpty()) {
             OMTNetwork mergeNet = devices.remove(0).getConnectedNetwork();
-            for(INetworkCable cable : devices) {
+            for (INetworkCable cable : devices) {
 
             }
         } else {
-            if(!this.getWorld().isRemote) {
+            if (!this.getWorld().isRemote) {
                 this.setNetwork(new OMTNetwork(this.getWorld()));
             }
         }
     }
-
 
     @Override
     public OMTNetwork getConnectedNetwork() {
         return network;
     }
 
-    public OMTNetwork setNetwork(OMTNetwork network) {
-        return this.network = network;
+    @Nullable
+    @Override
+    public OMTNetwork getNetwork() {
+        return network;
+    }
+
+    @Nonnull
+    @Override
+    public String getDeviceName() {
+        return "cable";
+    }
+
+    @Nonnull
+    @Override
+    public BlockPos getPosition() {
+        return this.getPos();
     }
 
     @Override
-    public void connectDevice(INetworkTile tile) {
-        OMTNetwork tileNet = tile.getNetwork();
-        if(tileNet == null) {
-            tile.setNetwork(this.getConnectedNetwork());
-        } else {
-            //You just had to do it? Connect a cable to an existing network?
-            this.getConnectedNetwork().mergeNetwork(tileNet);
-        }
+    public void setNetwork(OMTNetwork network) {
+        this.network = network;
     }
 }
