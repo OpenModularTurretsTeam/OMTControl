@@ -168,9 +168,9 @@ dependencies {
         runtime project(':OpenModularLighting')
     }
 
-
-    runtime "com.enderio:EnderIO:${config.minecraft_version}-${config.enderio_version}"
-    runtime "com.enderio.core:EnderCore:${config.minecraft_version}-${config.endercore_version}"
+    deobfCompile "appeng:appliedenergistics2:rv4-stable-1"
+    runtimeOnly "com.enderio:EnderIO:${config.minecraft_version}-${config.enderio_version}"
+    runtimeOnly "com.enderio.core:EnderCore:${config.minecraft_version}-${config.endercore_version}"
     //runtime "com.github.azanor:baubles:${config.baubles_version}"
 }
 
