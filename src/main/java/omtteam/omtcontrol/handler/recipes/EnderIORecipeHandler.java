@@ -22,7 +22,7 @@ class EnderIORecipeHandler {
         ItemStack soularium;
         
 		/* OMModItems */
-
+        /*
         Block capBankBlock = GameRegistry.findBlock("EnderIO", "blockCapBank");
         capacitorBank = new ItemStack(capBankBlock, 1, 2);
         capacitorBankVibrant = new ItemStack(capBankBlock, 1, 3);
@@ -40,6 +40,6 @@ class EnderIORecipeHandler {
         electricalSteel = new ItemStack(alloyItem, 1, 0);
         darkSteel = new ItemStack(alloyItem, 1, 6);
         conductiveIron = new ItemStack(alloyItem, 1, 4);
-        soularium = new ItemStack(alloyItem, 1, 7);
+        soularium = new ItemStack(alloyItem, 1, 7);*/
     }
 }

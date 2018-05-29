@@ -1,7 +1,9 @@
 package omtteam.omtcontrol.items;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -15,7 +17,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import omtteam.omlib.compatibility.minecraft.CompatItem;
 import omtteam.omtcontrol.OMTControl;
 import omtteam.omtcontrol.blocks.BlockBaseAddonMain;
 import omtteam.omtcontrol.reference.OMTControlNames;
@@ -23,13 +24,14 @@ import omtteam.omtcontrol.reference.Reference;
 import omtteam.omtcontrol.tileentity.TileEntityBaseAddonMain;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
 
 /**
  * Created by Rokiyo on 15/05/2017.
  */
-public class ItemLaserPointer extends CompatItem {
+public class ItemLaserPointer extends Item {
     public ItemLaserPointer() {
         super();
 
@@ -61,16 +63,16 @@ public class ItemLaserPointer extends CompatItem {
 
     @Override
     @Nonnull
-    public EnumActionResult clOnItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (player.isSneaking()) {
             ItemStack stack = player.getHeldItem(hand);
             clearNBTData(stack);
         }
-        return super.clOnItemUse(player, world, pos, hand, facing, hitX, hitY, hitZ);
+        return super.onItemUse(player, world, pos, hand, facing, hitX, hitY, hitZ);
     }
 
     @Override
-    protected ActionResult<ItemStack> clOnItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
         ItemStack itemStackIn = playerIn.getHeldItem(hand);
         if (playerIn.isSneaking()) {
             clearNBTData(itemStackIn);
@@ -81,7 +83,7 @@ public class ItemLaserPointer extends CompatItem {
                 setAllTurretsForceFire(worldIn, itemStackIn, true);
             }
         }
-        return super.clOnItemRightClick(worldIn, playerIn, hand);
+        return super.onItemRightClick(worldIn, playerIn, hand);
     }
 
     @Nonnull
@@ -172,7 +174,7 @@ public class ItemLaserPointer extends CompatItem {
 
     @SideOnly(Side.CLIENT)
     @SuppressWarnings("unchecked")
-    public void addInformation(ItemStack stack, EntityPlayer player, List tooltip, boolean isAdvanced) {
+    public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flag) {
         if(hasLinkedBases(stack)) {
             NBTTagCompound tagCompound = getTagCompound(stack);
             NBTTagList linkedBases = getLinkedBases(stack);

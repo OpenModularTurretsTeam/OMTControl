@@ -1,11 +1,14 @@
 package omtteam.omtcontrol.items.blocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 import omtteam.omtcontrol.blocks.BlockBaseAddonMain;
 import omtteam.omtcontrol.init.ModBlocks;
 import omtteam.omtcontrol.reference.OMTControlNames.Blocks;
@@ -13,6 +16,7 @@ import omtteam.omtcontrol.reference.Reference;
 import omtteam.openmodularturrets.items.blocks.AbstractItemBlockBaseAddon;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
@@ -37,7 +41,7 @@ public class ItemBlockBaseAddonMain extends AbstractItemBlockBaseAddon {
 
     @Override
     @ParametersAreNonnullByDefault
-    public void clGetSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
         for (int i = 0; i < BlockBaseAddonMain.SUBBLOCK_COUNT; i++) {
             subItems.add(new ItemStack(ModBlocks.baseAddonMain, 1, i));
         }
@@ -57,7 +61,7 @@ public class ItemBlockBaseAddonMain extends AbstractItemBlockBaseAddon {
     @Override
     @SuppressWarnings("unchecked")
     @ParametersAreNonnullByDefault
-    public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
+    public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flag) {
         switch (stack.getMetadata()) {
             case 0:
                 tooltip.add("");

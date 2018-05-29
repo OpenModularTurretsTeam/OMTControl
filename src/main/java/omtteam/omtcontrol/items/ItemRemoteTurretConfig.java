@@ -1,12 +1,12 @@
 package omtteam.omtcontrol.items;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import omtteam.omlib.compatibility.minecraft.CompatItem;
 import omtteam.omlib.util.PlayerUtil;
 import omtteam.omtcontrol.OMTControl;
 import omtteam.omtcontrol.reference.OMTControlNames;
@@ -16,7 +16,7 @@ import omtteam.openmodularturrets.tileentity.TurretBase;
 /**
  * Created by dmf444 on 8/8/2017. Code originally written for OMTControl.
  */
-public class ItemRemoteTurretConfig extends CompatItem{
+public class ItemRemoteTurretConfig extends Item {
 
     public ItemRemoteTurretConfig(){
         this.setHasSubtypes(false);

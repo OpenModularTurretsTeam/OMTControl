@@ -45,6 +45,10 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void preInit() {
         super.preInit();
+    }
+
+    @Override
+    public void renderRegistry() {
         for (int i = 0; i < BlockBaseAddonMain.SUBBLOCK_COUNT; i++) {
             registerBlockModelAsItem(ModBlocks.baseAddonMain, i, OMTControlNames.Blocks.baseAddonMain, "facing=north,meta=" + i);
         }

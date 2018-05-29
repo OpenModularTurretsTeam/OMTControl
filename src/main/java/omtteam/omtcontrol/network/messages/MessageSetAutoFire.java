@@ -24,8 +24,8 @@ public class MessageSetAutoFire implements IMessage {
         public IMessage onMessage(MessageSetAutoFire messageIn, MessageContext ctxIn) {
             final MessageSetAutoFire message = messageIn;
             final MessageContext ctx = ctxIn;
-            ((WorldServer) ctx.getServerHandler().playerEntity.getEntityWorld()).addScheduledTask(() -> {
-                World world = ctx.getServerHandler().playerEntity.getEntityWorld();
+            ((WorldServer) ctx.getServerHandler().player.getEntityWorld()).addScheduledTask(() -> {
+                World world = ctx.getServerHandler().player.getEntityWorld();
                 TurretHead turret = (TurretHead) world.getTileEntity(new BlockPos(message.getX(), message.getY(), message.getZ()));
 
                 turret.setAutoFire(message.autoFire);

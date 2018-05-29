@@ -5,6 +5,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,6 +18,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
@@ -25,9 +27,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import omtteam.omlib.api.IHasItemBlock;
+import omtteam.omlib.util.EnumAccessMode;
 import omtteam.omlib.util.PlayerUtil;
 import omtteam.omlib.util.TrustedPlayer;
-import omtteam.omlib.util.compat.ItemStackTools;
 import omtteam.omtcontrol.OMTControl;
 import omtteam.omtcontrol.init.ModBlocks;
 import omtteam.omtcontrol.items.ItemLaserPointer;
@@ -45,7 +47,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
 import static omtteam.omlib.util.GeneralUtil.safeLocalize;
-import static omtteam.omlib.util.compat.ChatTools.addChatMessage;
+import static omtteam.omlib.util.PlayerUtil.addChatMessage;
 
 /**
  * Created by Keridos on 09/02/17.
@@ -145,9 +147,10 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
     }
 
     @Override
-    @ParametersAreNonnullByDefault
-    public boolean isBlockSolid(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
-        return false;
+    @Deprecated
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
+    {
+        return BlockFaceShape.UNDEFINED;
     }
 
     @Override
@@ -161,7 +164,7 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
     }
 
     @Override
-    protected boolean clOnBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (hand.equals(EnumHand.OFF_HAND)) return true;
         TurretBase base = getBase(worldIn, pos);
         if (base == null) {
@@ -172,7 +175,7 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
             //TODO: Remove code repetition
             TrustedPlayer trustedPlayer = PlayerUtil.getTrustedPlayer(playerIn, base);
             if (trustedPlayer != null) {
-                if (base.getTrustedPlayer(playerIn.getUniqueID()).canOpenGUI) {
+                if (base.getTrustedPlayer(playerIn.getUniqueID()).getAccessMode() == EnumAccessMode.OPEN_GUI) {
                     handleMeta0(playerIn, pos, worldIn, false);
                 }
             }
@@ -188,7 +191,7 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
     }
 
     private boolean handleMeta0(EntityPlayer playerIn, BlockPos pos, World worldIn, boolean isOwner){
-        if (playerIn.getHeldItemMainhand() != ItemStackTools.getEmptyStack() && playerIn.getHeldItemMainhand().getItem() instanceof ItemLaserPointer) {
+        if (playerIn.getHeldItemMainhand() != ItemStack.EMPTY && playerIn.getHeldItemMainhand().getItem() instanceof ItemLaserPointer) {
             if (playerIn.isSneaking()) {
                 //TODO: Unlink laser pointer
             } else {
@@ -212,7 +215,7 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
     @SideOnly(Side.CLIENT)
     @SuppressWarnings("unchecked")
     @ParametersAreNonnullByDefault
-    public void clGetSubBlocks(Item item, CreativeTabs tab, List subItems) {
+    public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> subItems) {
         for (int i = 0; i < SUBBLOCK_COUNT; i++) {
             subItems.add(new ItemStack(ModBlocks.baseAddonMain, 1, i));
         }

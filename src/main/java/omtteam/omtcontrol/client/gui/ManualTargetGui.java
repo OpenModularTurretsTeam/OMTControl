@@ -12,6 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import omtteam.omlib.client.gui.IHasTooltips;
 import omtteam.omlib.reference.OMLibNames;
+import omtteam.omlib.util.EnumAccessMode;
 import omtteam.omlib.util.PlayerUtil;
 import omtteam.omlib.util.TrustedPlayer;
 import omtteam.omtcontrol.client.gui.containers.BaseAddonBlockContainer;
@@ -74,14 +75,14 @@ public class ManualTargetGui extends GuiContainer implements IHasTooltips {
         this.buttonList.clear();
         int x = (width - xSize) / 2;
         int y = (height - ySize) / 2;
-        FontRenderer fontRenderer = Minecraft.getMinecraft().fontRendererObj;
+        FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
 
         yaw = new GuiTextField(0, fontRenderer, 7, 7, 40, 18);
         pitch = new GuiTextField(1, fontRenderer, 7, 27, 40, 18);
         yaw.setMaxStringLength(5);
         pitch.setMaxStringLength(5);
         TrustedPlayer trustedPlayer = PlayerUtil.getTrustedPlayer(player, base);
-        if (PlayerUtil.isPlayerOwner(player, base) || trustedPlayer != null && (trustedPlayer.canChangeTargeting || trustedPlayer.admin)) {
+        if (PlayerUtil.isPlayerOwner(player, base) || trustedPlayer != null && (trustedPlayer.getAccessMode() == EnumAccessMode.CHANGE_SETTINGS || trustedPlayer.getAccessMode() == EnumAccessMode.ADMIN)) {
             this.buttonList.add(new GuiButton(1, x + 52, y + 3, 120, 20,
                     safeLocalize(OMTControlNames.Localizations.GUI.SET_YAW_PITCH)));
             this.buttonList.add(new GuiButton(2, x + 52, y + 23, 120, 20,
@@ -175,7 +176,7 @@ public class ManualTargetGui extends GuiContainer implements IHasTooltips {
     @SuppressWarnings("unchecked")
     @Override
     protected void drawGuiContainerForegroundLayer(int param1, int param2) {
-        FontRenderer fontRenderer = Minecraft.getMinecraft().fontRendererObj;
+        FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
         ArrayList turretInfo = new ArrayList();
         turretInfo.add("\u00A73" + safeLocalize(OMTNames.Localizations.GUI.BASE) + ":");
         turretInfo.add("\u00A76" + safeLocalize(OMLibNames.Localizations.GUI.OWNER) + ": \u00A7f" + base.getOwnerName());
@@ -233,7 +234,7 @@ public class ManualTargetGui extends GuiContainer implements IHasTooltips {
                 break;
         }
         if (!tooltip.isEmpty())
-            this.drawHoveringText(tooltip, mouseX - k, mouseY - l, Minecraft.getMinecraft().fontRendererObj);
+            this.drawHoveringText(tooltip, mouseX - k, mouseY - l, Minecraft.getMinecraft().fontRenderer);
     }
 
     private void sendYawPitchToServer() {

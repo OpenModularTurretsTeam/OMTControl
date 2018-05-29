@@ -19,6 +19,7 @@ class MekanismRecipeHandler {
 
 
 		/* OMModItems */
+		/*
         ironEnriched = new ItemStack(GameRegistry.findItem(Mek, "EnrichedIron"), 1);
         alloyEnriched = new ItemStack(GameRegistry.findItem(Mek, "EnrichedAlloy"), 1);
         alloyReinforced = new ItemStack(GameRegistry.findItem(Mek, "ReinforcedAlloy"), 1);
@@ -26,6 +27,6 @@ class MekanismRecipeHandler {
         energyTablet = new ItemStack(GameRegistry.findItem(Mek, "EnergyTablet"), 1);
         energyTablet.setItemDamage(OreDictionary.WILDCARD_VALUE);
         controlCircuit = new ItemStack(GameRegistry.findItem(Mek, "ControlCircuit"), 1);
-
+        */
     }
 }
