@@ -1,5 +1,7 @@
 package omtteam.omtcontrol.reference;
 
+import net.minecraft.util.ResourceLocation;
+
 /**
  * Created by Keridos on 17.05.2015.
  * This Class
@@ -9,6 +11,8 @@ public class OMTControlNames {
         public static final String manualTarget = "manual_target";
         public static final String PLAYER_DEFENSE_MODULE = "player_defense_module";
         public static final String baseAddonMain = "base_addon_main";
+        public static final String HACKING_TERMINAL = "hacking_terminal";
+        public static final String CABLES = "omt_cables";
     }
 
     public static class Items {
@@ -36,5 +40,6 @@ public class OMTControlNames {
 
     public static class Textures {
         public static final String MANUAL_TARGET_BLOCK = Reference.MOD_ID + ":textures/gui/manual_target_block.png";
+        public static final ResourceLocation TURRET_HACKER = new ResourceLocation(Reference.MOD_ID, "textures/gui/turret_hacking_gui");
     }
 }

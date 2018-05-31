@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "inventory": { "model": "omtcontrol:hacking_terminal", "y": 180 },
+    "facing=north": { "model": "omtcontrol:hacking_terminal", "y": 180},
+    "facing=south": { "model": "omtcontrol:hacking_terminal" },
+    "facing=west":  { "model": "omtcontrol:hacking_terminal", "y": 90 },
+    "facing=east":  { "model": "omtcontrol:hacking_terminal", "y": 270 },
+    "facing=down":  { "model": "omtcontrol:hacking_terminal", "x": 90 },
+    "facing=up":    { "model": "omtcontrol:hacking_terminal", "x": 270 }
+  }
+}
