@@ -94,6 +94,9 @@ repositories {
         url "http://maven.tterrag.com/"
     }
     maven {
+        url 'http://maven.mcmoddev.com'
+    }
+    maven {
         name  "OC repo"
         url  "http://maven.cil.li/"
     }
