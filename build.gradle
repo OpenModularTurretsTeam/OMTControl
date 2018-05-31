@@ -46,7 +46,7 @@ minecraft {
     replace "@VERSION@", project.version
     replace "omlib@[0.0.0,)", "omlib@[" + config.omlib_version + ",)"
     replace "openmodularturrets@[0.0.0,)", "openmodularturrets@[" + config.omt_version + ",)"
-	    // the mappings can be changed at any time, and must be in the following format.
+    // the mappings can be changed at any time, and must be in the following format.
     // snapshot_YYYYMMDD   snapshot are built nightly.
     // stable_#            stables are built at the discretion of the MCP team.
     // Use non-default mappings at your own risk. they may not always work.
@@ -94,28 +94,28 @@ repositories {
         url "http://maven.tterrag.com/"
     }
     maven {
-        url 'http://maven.mcmoddev.com'
+        name "OC repo"
+        url "http://maven.cil.li/"
     }
     maven {
-        name  "OC repo"
-        url  "http://maven.cil.li/"
+        name "ic2"
+        url "http://maven.ic2.player.to/"
     }
-    maven {
-        name  "ic2"
-        url  "http://maven.ic2.player.to/"
-    }
-	maven { // JEI
+    maven { // JEI
         url "http://dvs1.progwml6.com/files/maven"
     }
-	maven {
-		name = "Progwml6 maven"
-		url = "http://dvs1.progwml6.com/files/maven"
-	}
+    maven {
+        name = "Progwml6 maven"
+        url = "http://dvs1.progwml6.com/files/maven"
+    }
     maven {
         url "http://tehnut.info/maven"
     }
     maven {
         url "http://maven.ironhide.de/"
+    }
+    maven {
+        url 'http://maven.mcmoddev.com'
     }
     maven { url = "http://dl.tsr.me/artifactory/libs-release-local" }
     ivy {
@@ -127,22 +127,22 @@ repositories {
 }
 
 def omlib_local = false
-configure(allprojects.findAll {it.name == 'OMLib'}) {
-   omlib_local = true
+configure(allprojects.findAll { it.name == 'OMLib' }) {
+    omlib_local = true
 }
 
 def omt_local = false
-configure(allprojects.findAll {it.name == 'OpenModularTurrets'}) {
-   omt_local = true
+configure(allprojects.findAll { it.name == 'OpenModularTurrets' }) {
+    omt_local = true
 }
 
 def ompd_local = false
-configure(allprojects.findAll {it.name == 'OpenModularPassiveDefense'}) {
+configure(allprojects.findAll { it.name == 'OpenModularPassiveDefense' }) {
     ompd_local = true
 }
 
 def oml_local = false
-configure(allprojects.findAll {it.name == 'OpenModularLighting'}) {
+configure(allprojects.findAll { it.name == 'OpenModularLighting' }) {
     oml_local = true
 }
 
@@ -172,8 +172,8 @@ dependencies {
     }
 
     deobfCompile "appeng:appliedenergistics2:rv5-stable-11"
-    runtimeOnly "com.enderio:EnderIO:${config.minecraft_version}-${config.enderio_version}"
-    runtimeOnly "com.enderio.core:EnderCore:${config.minecraft_version}-${config.endercore_version}"
+    //runtimeOnly "com.enderio:EnderIO:${config.minecraft_version}-${config.enderio_version}"
+    //runtimeOnly "com.enderio.core:EnderCore:${config.minecraft_version}-${config.endercore_version}"
     //runtime "com.github.azanor:baubles:${config.baubles_version}"
 }
 
@@ -197,6 +197,6 @@ publishing {
         }
     }
     repositories {
-            mavenLocal()
+        mavenLocal()
     }
 }
