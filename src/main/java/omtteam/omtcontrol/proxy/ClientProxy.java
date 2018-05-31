@@ -52,6 +52,7 @@ public class ClientProxy extends CommonProxy {
         for (int i = 0; i < BlockBaseAddonMain.SUBBLOCK_COUNT; i++) {
             registerBlockModelAsItem(ModBlocks.baseAddonMain, i, OMTControlNames.Blocks.baseAddonMain, "facing=north,meta=" + i);
         }
+        registerBlockModelAsItem(ModBlocks.HACKING_TERMINAL, 0, OMTControlNames.Blocks.HACKING_TERMINAL);
         registerItemModel(ModItems.laserPointer, 0);
     }
 
