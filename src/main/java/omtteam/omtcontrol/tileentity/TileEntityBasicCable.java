@@ -8,20 +8,12 @@ import omtteam.openmodularturrets.api.network.INetworkCable;
 import omtteam.openmodularturrets.api.network.INetworkTile;
 import omtteam.openmodularturrets.api.network.OMTNetwork;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TileEntityBasicCable extends TileEntityBase implements INetworkCable {
 
     private OMTNetwork network;
-
-    @Override
-    public boolean shouldConnect(EnumFacing side) {
-        TileEntity tile = this.getWorld().getTileEntity(this.getPos().offset(side));
-        return tile instanceof INetworkTile || tile instanceof INetworkCable;
-    }
 
     private List<INetworkCable> getConnectedCables() {
         ArrayList<INetworkCable> networkTiles = new ArrayList<>();
@@ -44,9 +36,15 @@ public class TileEntityBasicCable extends TileEntityBase implements INetworkCabl
             }
         } else {
             if (!this.getWorld().isRemote) {
-                this.setNetwork(new OMTNetwork(this.getWorld()));
+                this.network = new OMTNetwork(this.getWorld());
             }
         }
+    }
+
+    @Override
+    public boolean shouldConnect(EnumFacing side) {
+        TileEntity tile = this.getWorld().getTileEntity(this.getPos().offset(side));
+        return tile instanceof INetworkTile || tile instanceof INetworkCable;
     }
 
     @Override
@@ -54,26 +52,20 @@ public class TileEntityBasicCable extends TileEntityBase implements INetworkCabl
         return network;
     }
 
-    @Nullable
-    @Override
-    public OMTNetwork getNetwork() {
-        return network;
-    }
 
-    @Nonnull
     @Override
-    public String getDeviceName() {
-        return "cable";
-    }
-
-    @Nonnull
-    @Override
-    public BlockPos getPosition() {
-        return this.getPos();
+    public List<INetworkTile> getConnectedDevices() {
+        List<INetworkTile> devices = new ArrayList<>();
+        for (EnumFacing facing : EnumFacing.VALUES) {
+            if (this.getWorld().getTileEntity(this.getPos().offset(facing)) instanceof INetworkTile) {
+                devices.add((INetworkTile) this.getWorld().getTileEntity(this.getPos().offset(facing)));
+            }
+        }
+        return devices;
     }
 
     @Override
-    public void setNetwork(OMTNetwork network) {
-        this.network = network;
+    public void connectDevice(INetworkTile tile) {
+        this.network.addDevice(tile);
     }
 }
