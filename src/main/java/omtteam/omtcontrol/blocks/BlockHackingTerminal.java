@@ -7,15 +7,18 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import omtteam.omlib.blocks.BlockAbstractTileEntity;
 import omtteam.omtcontrol.OMTControl;
+import omtteam.omtcontrol.handler.GuiHandler;
 import omtteam.omtcontrol.reference.OMTControlNames;
 import omtteam.omtcontrol.reference.Reference;
 import omtteam.omtcontrol.tileentity.TileEntityHackingTerminal;
@@ -26,6 +29,7 @@ import javax.annotation.Nullable;
 public class BlockHackingTerminal extends BlockAbstractTileEntity {
 
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+    private static final int GUI_ID = 2;
 
     public BlockHackingTerminal() {
         super(Material.ROCK);
@@ -34,12 +38,24 @@ public class BlockHackingTerminal extends BlockAbstractTileEntity {
         this.setSoundType(SoundType.STONE);
         this.setUnlocalizedName(OMTControlNames.Blocks.HACKING_TERMINAL);
         this.setRegistryName(Reference.MOD_ID, OMTControlNames.Blocks.HACKING_TERMINAL);
+
+        GuiHandler.getInstance().insertBlock(GUI_ID, TileEntityHackingTerminal.class);
     }
 
     @Nonnull
     @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
         return new TileEntityHackingTerminal();
+    }
+
+    @Override
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+        if (hand.equals(EnumHand.OFF_HAND)) return true;
+        TileEntity tileEntity = world.getTileEntity(pos);
+        if(tileEntity == null || player.isSneaking()) return false;
+
+        player.openGui(OMTControl.instance, GUI_ID, world, pos.getX(), pos.getY(), pos.getZ());
+        return true;
     }
 
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {

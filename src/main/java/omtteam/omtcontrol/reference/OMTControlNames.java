@@ -40,6 +40,6 @@ public class OMTControlNames {
 
     public static class Textures {
         public static final String MANUAL_TARGET_BLOCK = Reference.MOD_ID + ":textures/gui/manual_target_block.png";
-        public static final ResourceLocation TURRET_HACKER = new ResourceLocation(Reference.MOD_ID, "textures/gui/turret_hacking_gui");
+        public static final ResourceLocation TURRET_HACKER = new ResourceLocation(Reference.MOD_ID, "textures/gui/turret_hacking_gui.png");
     }
 }

@@ -8,6 +8,8 @@ import omtteam.openmodularturrets.api.network.INetworkCable;
 import omtteam.openmodularturrets.api.network.INetworkTile;
 import omtteam.openmodularturrets.api.network.OMTNetwork;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +55,7 @@ public class TileEntityBasicCable extends TileEntityBase implements INetworkCabl
     }
 
 
-    @Override
+    /*@Override
     public List<INetworkTile> getConnectedDevices() {
         List<INetworkTile> devices = new ArrayList<>();
         for (EnumFacing facing : EnumFacing.VALUES) {
@@ -67,5 +69,28 @@ public class TileEntityBasicCable extends TileEntityBase implements INetworkCabl
     @Override
     public void connectDevice(INetworkTile tile) {
         this.network.addDevice(tile);
+    }*/
+
+    @Nullable
+    @Override
+    public OMTNetwork getNetwork() {
+        return this.network;
+    }
+
+    @Override
+    public void setNetwork(@Nullable OMTNetwork network) {
+        this.network = network;
+    }
+
+    @Nonnull
+    @Override
+    public String getDeviceName() {
+        return "omtc.cables_basic";
+    }
+
+    @Nonnull
+    @Override
+    public BlockPos getPosition() {
+        return this.pos;
     }
 }
