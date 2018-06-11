@@ -4,16 +4,18 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import omtteam.omlib.tileentity.TileEntityBase;
-import omtteam.openmodularturrets.api.network.INetworkCable;
-import omtteam.openmodularturrets.api.network.INetworkTile;
-import omtteam.openmodularturrets.api.network.OMTNetwork;
+import omtteam.omlib.api.network.INetworkCable;
+import omtteam.omlib.api.network.INetworkTile;
+import omtteam.omlib.api.network.OMLibNetwork;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TileEntityBasicCable extends TileEntityBase implements INetworkCable {
 
-    private OMTNetwork network;
+    private OMLibNetwork network;
 
     private List<INetworkCable> getConnectedCables() {
         ArrayList<INetworkCable> networkTiles = new ArrayList<>();
@@ -30,13 +32,13 @@ public class TileEntityBasicCable extends TileEntityBase implements INetworkCabl
     public void createNetwork() {
         List<INetworkCable> devices = this.getConnectedCables();
         if (!devices.isEmpty()) {
-            OMTNetwork mergeNet = devices.remove(0).getConnectedNetwork();
+            OMLibNetwork mergeNet = devices.remove(0).getConnectedNetwork();
             for (INetworkCable cable : devices) {
 
             }
         } else {
             if (!this.getWorld().isRemote) {
-                this.network = new OMTNetwork(this.getWorld());
+                this.network = new OMLibNetwork(this.getWorld());
             }
         }
     }
@@ -48,24 +50,30 @@ public class TileEntityBasicCable extends TileEntityBase implements INetworkCabl
     }
 
     @Override
-    public OMTNetwork getConnectedNetwork() {
+    public OMLibNetwork getConnectedNetwork() {
         return network;
     }
 
-
+    @Nullable
     @Override
-    public List<INetworkTile> getConnectedDevices() {
-        List<INetworkTile> devices = new ArrayList<>();
-        for (EnumFacing facing : EnumFacing.VALUES) {
-            if (this.getWorld().getTileEntity(this.getPos().offset(facing)) instanceof INetworkTile) {
-                devices.add((INetworkTile) this.getWorld().getTileEntity(this.getPos().offset(facing)));
-            }
-        }
-        return devices;
+    public OMLibNetwork getNetwork() {
+        return network;
     }
 
     @Override
-    public void connectDevice(INetworkTile tile) {
-        this.network.addDevice(tile);
+    public void setNetwork(@Nullable OMLibNetwork network) {
+        this.network = network;
+    }
+
+    @Nonnull
+    @Override
+    public String getDeviceName() {
+        return "cable";
+    }
+
+    @Nonnull
+    @Override
+    public BlockPos getPosition() {
+        return this.getPos();
     }
 }
