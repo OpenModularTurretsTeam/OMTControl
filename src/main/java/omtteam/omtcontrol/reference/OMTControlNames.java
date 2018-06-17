@@ -8,7 +8,9 @@ public class OMTControlNames {
     public static class Blocks {
         public static final String manualTarget = "manual_target";
         public static final String PLAYER_DEFENSE_MODULE = "player_defense_module";
+        public static final String CABLES = "omt_cables";
         public static final String baseAddonMain = "base_addon_main";
+        public static final String HACKING_TERMINAL = "hacking_terminal";
     }
 
     public static class Items {

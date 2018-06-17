@@ -49,6 +49,7 @@ public class ClientProxy extends CommonProxy {
             registerBlockModelAsItem(ModBlocks.baseAddonMain, i, OMTControlNames.Blocks.baseAddonMain, "facing=north,meta=" + i);
         }
         registerItemModel(ModItems.laserPointer, 0);
+        registerBlockModelAsItem(ModBlocks.HACKING_TERMINAL, 0, OMTControlNames.Blocks.HACKING_TERMINAL);
     }
 
     @Override
