@@ -11,7 +11,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -44,7 +43,6 @@ import omtteam.openmodularturrets.tileentity.TurretBase;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.List;
 
 import static omtteam.omlib.util.GeneralUtil.safeLocalize;
 import static omtteam.omlib.util.PlayerUtil.addChatMessage;
@@ -55,10 +53,10 @@ import static omtteam.omlib.util.PlayerUtil.addChatMessage;
  */
 public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItemBlock {
     public static final int SUBBLOCK_COUNT = 2;
-    private static final PropertyInteger META = PropertyInteger.create("meta", 0, SUBBLOCK_COUNT - 1);
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
+    private static final PropertyInteger META = PropertyInteger.create("meta", 0, SUBBLOCK_COUNT - 1);
 
-    public  BlockBaseAddonMain() {
+    public BlockBaseAddonMain() {
         super(Material.ROCK);
         this.setCreativeTab(OMTControl.creativeTab);
         this.setHardness(2.0F);
@@ -104,7 +102,7 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
     @Nonnull
     @ParametersAreNonnullByDefault
     public TileEntity createTileEntity(World world, IBlockState state) {
-        switch (state.getValue(META)){
+        switch (state.getValue(META)) {
             case 1:
                 return new TileEntityPlayerDefenseModule();
             default:
@@ -148,8 +146,7 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
 
     @Override
     @Deprecated
-    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
-    {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
 
@@ -171,7 +168,7 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
             worldIn.destroyBlock(pos, true);
             return true;
         }
-        if(state.getValue(META) == 0) {
+        if (state.getValue(META) == 0) {
             //TODO: Remove code repetition
             TrustedPlayer trustedPlayer = PlayerUtil.getTrustedPlayer(playerIn, base);
             if (trustedPlayer != null) {
@@ -190,7 +187,7 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
         return false;
     }
 
-    private boolean handleMeta0(EntityPlayer playerIn, BlockPos pos, World worldIn, boolean isOwner){
+    private boolean handleMeta0(EntityPlayer playerIn, BlockPos pos, World worldIn, boolean isOwner) {
         if (playerIn.getHeldItemMainhand() != ItemStack.EMPTY && playerIn.getHeldItemMainhand().getItem() instanceof ItemLaserPointer) {
             if (playerIn.isSneaking()) {
                 //TODO: Unlink laser pointer

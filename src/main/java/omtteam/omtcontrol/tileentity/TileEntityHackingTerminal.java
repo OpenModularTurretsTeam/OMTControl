@@ -12,7 +12,6 @@ import omtteam.omlib.tileentity.TileEntityBase;
 import omtteam.omlib.util.EnumAccessMode;
 import omtteam.omlib.util.PlayerUtil;
 import omtteam.omlib.util.TrustedPlayer;
-import omtteam.omtcontrol.OMTControl;
 import omtteam.omtcontrol.client.gui.TurretHackingGui;
 import omtteam.omtcontrol.client.gui.containers.TurretHackingContainer;
 import omtteam.omtcontrol.handler.ConfigHandler;
@@ -20,12 +19,11 @@ import omtteam.openmodularturrets.tileentity.TurretBase;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by dmf444 on 11/13/2017. Code originally written for OMTControl.
  */
-public class TileEntityHackingTerminal extends TileEntityBase implements ITickable, IGuiable{
+public class TileEntityHackingTerminal extends TileEntityBase implements ITickable, IGuiable {
 
     private int tickCounter, secondCounter, totalFoundTurrets;
     private boolean hasQuery = false, startHack = false;
@@ -40,12 +38,12 @@ public class TileEntityHackingTerminal extends TileEntityBase implements ITickab
 
     @Override
     public void update() {
-        if(!hasQuery) {
+        if (!hasQuery) {
             queryChunks();
             hasQuery = !hasQuery;
         }
 
-        if(startHack && hackableBlocks.size() > 0) {
+        if (startHack && hackableBlocks.size() > 0) {
             tickCounter++;
             //OMTControl.getLogger().error("HERE!");
 
@@ -63,7 +61,7 @@ public class TileEntityHackingTerminal extends TileEntityBase implements ITickab
                 hackedConsoles++;
                 secondCounter = 0;
                 tickCounter = 0;
-                if(getTotalHacksCompleted() >= 1){
+                if (getTotalHacksCompleted() >= 1) {
                     startHack = false;
                 }
 
@@ -77,47 +75,47 @@ public class TileEntityHackingTerminal extends TileEntityBase implements ITickab
         this.startHack = true;
     }
 
-    public void reQueryChuncks(){
+    public void reQueryChuncks() {
 
     }
 
-    public boolean isQuerying(){
+    public boolean isQuerying() {
         return !hasQuery;
     }
 
-    public boolean isHacking(){
+    public boolean isHacking() {
         return startHack;
     }
 
     public double getSingleCompletionPercent() {
-        return (double)secondCounter / 30;
+        return (double) secondCounter / 30;
     }
 
-    public double getTotalCompletionPercentage(){
-        return  ((this.hackedConsoles*30) + getSingleCompletionPercent()) / (30*this.totalFoundTurrets);
+    public double getTotalCompletionPercentage() {
+        return ((this.hackedConsoles * 30) + getSingleCompletionPercent()) / (30 * this.totalFoundTurrets);
     }
 
-    public double getTotalHacksCompleted(){
-        if(totalFoundTurrets == 0) {
+    public double getTotalHacksCompleted() {
+        if (totalFoundTurrets == 0) {
             return 1;
         } else {
             return this.hackedConsoles / this.totalFoundTurrets;
         }
     }
 
-    private void queryChunks(){
+    private void queryChunks() {
         Chunk chunk = this.getWorld().getChunkFromBlockCoords(this.getPos());
         ChunkPos chunkPosMain = chunk.getPos();
         List<BlockPos> list = new ArrayList<>();
 
         ChunkPos pos;
-        for(int x=0; x < 3; x++){
-            for (int z=0; z < 3; z++){
-                pos = new ChunkPos(chunkPosMain.x-1+x, chunkPosMain.z-1+z);
+        for (int x = 0; x < 3; x++) {
+            for (int z = 0; z < 3; z++) {
+                pos = new ChunkPos(chunkPosMain.x - 1 + x, chunkPosMain.z - 1 + z);
                 chunk = this.getWorld().getChunkFromChunkCoords(pos.x, pos.z);
-                for (BlockPos blockPos: chunk.getTileEntityMap().keySet()) {
+                for (BlockPos blockPos : chunk.getTileEntityMap().keySet()) {
                     TileEntity tile = chunk.getTileEntityMap().get(blockPos);
-                    if(tile instanceof TurretBase && ((TurretBase) tile).getTrustedPlayer(owner) == null) {
+                    if (tile instanceof TurretBase && ((TurretBase) tile).getTrustedPlayer(owner) == null) {
                         list.add(blockPos);
                     }
                 }
@@ -129,7 +127,7 @@ public class TileEntityHackingTerminal extends TileEntityBase implements ITickab
 
     private void hackAndFriend(BlockPos pos) {
         TileEntity base = this.getWorld().getTileEntity(pos);
-        if(base != null) {
+        if (base != null) {
             TurretBase turretBase = (TurretBase) base;
             TrustedPlayer trustedPlayer = new TrustedPlayer(owner);
             trustedPlayer.setUuid(PlayerUtil.getPlayerUUID(owner));
@@ -140,10 +138,10 @@ public class TileEntityHackingTerminal extends TileEntityBase implements ITickab
 
     }
 
-    private EnumAccessMode getConfigLevel(){
+    private EnumAccessMode getConfigLevel() {
         try {
             return EnumAccessMode.valueOf(ConfigHandler.maximumHackingLevel);
-        }catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             return EnumAccessMode.OPEN_GUI;
         }
     }

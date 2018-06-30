@@ -54,6 +54,6 @@ public class OMTControl {
     @SuppressWarnings("unused")
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        
+
     }
 }

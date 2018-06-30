@@ -7,7 +7,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 import omtteam.omtcontrol.blocks.BlockBaseAddonMain;
 import omtteam.omtcontrol.init.ModBlocks;
 import omtteam.omtcontrol.init.ModItems;

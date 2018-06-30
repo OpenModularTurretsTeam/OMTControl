@@ -13,7 +13,7 @@ import omtteam.omtcontrol.tileentity.TileEntityBasicCable;
 
 import javax.annotation.Nonnull;
 
-public class BlockCable extends BlockAbstractTileEntity{
+public class BlockCable extends BlockAbstractTileEntity {
 
 
     protected BlockCable() {
@@ -28,7 +28,7 @@ public class BlockCable extends BlockAbstractTileEntity{
 
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         TileEntity tile = world.getTileEntity(pos);
-        if(tile instanceof TileEntityBasicCable) {
+        if (tile instanceof TileEntityBasicCable) {
             TileEntityBasicCable cable = (TileEntityBasicCable) tile;
             cable.createNetwork();
         }

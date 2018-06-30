@@ -11,33 +11,45 @@
   "variants": {
     "north": {
       "true": {
-        "model": "omtcontrol:cable_attachment", "y": 90
-      }, "false": {}
+        "model": "omtcontrol:cable_attachment",
+        "y": 90
+      },
+      "false": {}
     },
     "south": {
       "true": {
-        "model": "omtcontrol:cable_attachment", "y": -90
-      }, "false": {}
+        "model": "omtcontrol:cable_attachment",
+        "y": -90
+      },
+      "false": {}
     },
     "east": {
       "true": {
-        "model": "omtcontrol:cable_attachment", "y": 0
-      }, "false": {}
+        "model": "omtcontrol:cable_attachment",
+        "y": 0
+      },
+      "false": {}
     },
     "west": {
       "true": {
-        "model": "omtcontrol:cable_attachment", "y": 180
-      }, "false": {}
+        "model": "omtcontrol:cable_attachment",
+        "y": 180
+      },
+      "false": {}
     },
     "up": {
       "true": {
-        "model": "omtcontrol:cable_attachment", "z": 90
-      }, "false": {}
+        "model": "omtcontrol:cable_attachment",
+        "z": 90
+      },
+      "false": {}
     },
     "down": {
       "true": {
-        "model": "omtcontrol:cable_attachment", "z": -90
-      }, "false": {}
+        "model": "omtcontrol:cable_attachment",
+        "z": -90
+      },
+      "false": {}
     }
   }
 }

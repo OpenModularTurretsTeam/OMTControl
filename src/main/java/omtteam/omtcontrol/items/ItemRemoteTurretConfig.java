@@ -18,7 +18,7 @@ import omtteam.openmodularturrets.tileentity.TurretBase;
  */
 public class ItemRemoteTurretConfig extends Item {
 
-    public ItemRemoteTurretConfig(){
+    public ItemRemoteTurretConfig() {
         this.setHasSubtypes(false);
         this.setCreativeTab(OMTControl.creativeTab);
         this.setRegistryName(Reference.MOD_ID, OMTControlNames.Items.REMOTE_TURRET_CONFIG);
@@ -26,9 +26,9 @@ public class ItemRemoteTurretConfig extends Item {
     }
 
     protected EnumActionResult clOnItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if(world.getTileEntity(pos) instanceof TurretBase){
+        if (world.getTileEntity(pos) instanceof TurretBase) {
             TurretBase base = (TurretBase) world.getTileEntity(pos);
-            if(PlayerUtil.isPlayerOwner(player, base) || PlayerUtil.getTrustedPlayer(player, base) != null){
+            if (PlayerUtil.isPlayerOwner(player, base) || PlayerUtil.getTrustedPlayer(player, base) != null) {
 
             }
         }

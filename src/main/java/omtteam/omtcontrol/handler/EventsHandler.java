@@ -44,7 +44,7 @@ public class EventsHandler {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void modelRegistryEvent(ModelRegistryEvent e){
+    public void modelRegistryEvent(ModelRegistryEvent e) {
         OMTControl.proxy.renderRegistry();
     }
 }

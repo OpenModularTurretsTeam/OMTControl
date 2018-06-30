@@ -77,7 +77,7 @@ public class ItemLaserPointer extends Item {
         if (playerIn.isSneaking()) {
             clearNBTData(itemStackIn);
         } else {
-            if(hasLinkedBases(itemStackIn)) {
+            if (hasLinkedBases(itemStackIn)) {
                 //TODO: Look into a method that doesn't constantly overwrite the item's NBT data... It makes the item constantly refresh in the player's hand.
                 setLastActivation(worldIn, playerIn);
                 setAllTurretsForceFire(worldIn, itemStackIn, true);
@@ -88,7 +88,7 @@ public class ItemLaserPointer extends Item {
 
     @Nonnull
     public void aimAllTurrets(World worldIn, EntityPlayer playerIn, ItemStack itemStackIn) {
-        if(hasLinkedBases(itemStackIn)) {
+        if (hasLinkedBases(itemStackIn)) {
             NBTTagList linkedBases = getLinkedBases(itemStackIn);
 
             for (int i = 0; i < linkedBases.tagCount(); i++) {
@@ -105,7 +105,7 @@ public class ItemLaserPointer extends Item {
 
     @Nonnull
     public void setAllTurretsForceFire(World worldIn, ItemStack itemStackIn, boolean state) {
-        if(hasLinkedBases(itemStackIn)) {
+        if (hasLinkedBases(itemStackIn)) {
             NBTTagList linkedBases = getLinkedBases(itemStackIn);
             NBTTagCompound tagCompound = getTagCompound(itemStackIn);
             tagCompound.setBoolean("isActive", state);
@@ -119,7 +119,9 @@ public class ItemLaserPointer extends Item {
                     addon.setAllTurretsForceFire(state);
 
                     //TODO: Remove the following line once auto-firing is working correctly.
-                    if(state) { addon.forceShootAllTurrets(); }
+                    if (state) {
+                        addon.forceShootAllTurrets();
+                    }
                 }
             }
         }
@@ -157,7 +159,7 @@ public class ItemLaserPointer extends Item {
         NBTTagList linkedBases = getLinkedBases(stack);
         NBTTagCompound newBase = new NBTTagCompound();
 
-        int[] blockPosArray = { pos.getX(), pos.getY(), pos.getZ() };
+        int[] blockPosArray = {pos.getX(), pos.getY(), pos.getZ()};
         newBase.setIntArray("blockPos", blockPosArray);
         linkedBases.appendTag(newBase);
 
@@ -175,7 +177,7 @@ public class ItemLaserPointer extends Item {
     @SideOnly(Side.CLIENT)
     @SuppressWarnings("unchecked")
     public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flag) {
-        if(hasLinkedBases(stack)) {
+        if (hasLinkedBases(stack)) {
             NBTTagCompound tagCompound = getTagCompound(stack);
             NBTTagList linkedBases = getLinkedBases(stack);
             tooltip.add("\u00A76Linked Bases: \u00A7b" + linkedBases.tagCount());

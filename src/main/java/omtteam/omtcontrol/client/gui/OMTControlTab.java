@@ -23,6 +23,7 @@ public class OMTControlTab extends CreativeTabs {
         }
         return instance;
     }
+
     @Override
     public ItemStack getTabIconItem() {
         return new ItemStack(ModBlocks.laserTurret);

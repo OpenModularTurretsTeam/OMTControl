@@ -15,7 +15,7 @@ import omtteam.omtcontrol.tileentity.TileEntityPlayerDefenseModule;
 import static omtteam.omlib.util.InitHelper.registerBlock;
 
 public class ModBlocks {
-    public static  Block HACKING_TERMINAL;
+    public static Block HACKING_TERMINAL;
     public static Block baseAddonMain;
 
 
@@ -31,7 +31,7 @@ public class ModBlocks {
         GameRegistry.registerTileEntity(TileEntityHackingTerminal.class, toResource(OMTControlNames.Blocks.HACKING_TERMINAL));
     }
 
-    private static ResourceLocation toResource(String name){
+    private static ResourceLocation toResource(String name) {
         return new ResourceLocation(Reference.MOD_ID, name);
     }
 }

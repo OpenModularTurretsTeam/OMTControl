@@ -2,7 +2,6 @@ package omtteam.omtcontrol.handler;
 
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
@@ -16,6 +15,7 @@ import java.util.HashMap;
 
 public class GuiHandler implements IGuiHandler {
     private static GuiHandler instance;
+    HashMap<Integer, IGuiable> guiBlocks = new HashMap<>();
 
     private GuiHandler() {
     }
@@ -26,8 +26,6 @@ public class GuiHandler implements IGuiHandler {
         }
         return instance;
     }
-
-    HashMap<Integer, IGuiable> guiBlocks = new HashMap<>();
 
     public void insertBlock(int guiId, Class<? extends IGuiable> tileEntity) {
         try {
@@ -45,7 +43,7 @@ public class GuiHandler implements IGuiHandler {
                 return new BaseAddonBlockContainer(player.inventory, new BlockPos(x, y, z));
             default:
                 IGuiable te = guiBlocks.get(id);
-                if(te != null) {
+                if (te != null) {
                     return te.getServerContainer(player.inventory, new BlockPos(x, y, z));
                 }
                 return null;
@@ -60,7 +58,7 @@ public class GuiHandler implements IGuiHandler {
                 return new ManualTargetGui(player.inventory, new BlockPos(x, y, z));
             default:
                 IGuiable te = guiBlocks.get(id);
-                if(te != null) {
+                if (te != null) {
                     return te.getClientGui(player.inventory, new BlockPos(x, y, z));
                 }
                 return null;

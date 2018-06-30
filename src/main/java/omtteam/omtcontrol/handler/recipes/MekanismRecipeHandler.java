@@ -2,8 +2,6 @@ package omtteam.omtcontrol.handler.recipes;
 
 
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.OreDictionary;
 
 @SuppressWarnings("deprecation")
 class MekanismRecipeHandler {
@@ -18,7 +16,7 @@ class MekanismRecipeHandler {
         ItemStack controlCircuit;
 
 
-		/* OMModItems */
+        /* OMModItems */
 		/*
         ironEnriched = new ItemStack(GameRegistry.findItem(Mek, "EnrichedIron"), 1);
         alloyEnriched = new ItemStack(GameRegistry.findItem(Mek, "EnrichedAlloy"), 1);

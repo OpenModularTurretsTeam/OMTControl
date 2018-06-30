@@ -3,8 +3,6 @@ package omtteam.omtcontrol.items.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextFormatting;
@@ -28,16 +26,16 @@ import static omtteam.omlib.util.GeneralUtil.safeLocalize;
  * This Class
  */
 public class ItemBlockBaseAddonMain extends AbstractItemBlockBaseAddon {
+    private final static String[] subNames = {
+            Blocks.manualTarget,
+            Blocks.PLAYER_DEFENSE_MODULE
+    };
+
     public ItemBlockBaseAddonMain(Block block) {
         super(block);
         setHasSubtypes(true);
         this.setRegistryName(Reference.MOD_ID, Blocks.baseAddonMain);
     }
-
-    private final static String[] subNames = {
-            Blocks.manualTarget,
-            Blocks.PLAYER_DEFENSE_MODULE
-    };
 
     @Override
     @ParametersAreNonnullByDefault

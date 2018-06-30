@@ -18,22 +18,6 @@ public class MessageSendManualShot implements IMessage {
     public MessageSendManualShot() {
     }
 
-    @SuppressWarnings("ConstantConditions")
-    public static class MessageHandlerSendManualShot implements IMessageHandler<MessageSendManualShot, IMessage> {
-        @Override
-        public IMessage onMessage(MessageSendManualShot messageIn, MessageContext ctxIn) {
-            final MessageSendManualShot message = messageIn;
-            final MessageContext ctx = ctxIn;
-            ((WorldServer) ctx.getServerHandler().player.getEntityWorld()).addScheduledTask(() -> {
-                World world = ctx.getServerHandler().player.getEntityWorld();
-                TurretHead turret = (TurretHead) world.getTileEntity(new BlockPos(message.getX(), message.getY(), message.getZ()));
-
-                turret.forceShot();
-            });
-            return null;
-        }
-    }
-
     public MessageSendManualShot(int x, int y, int z) {
         this.x = x;
         this.y = y;
@@ -65,5 +49,21 @@ public class MessageSendManualShot implements IMessage {
 
     private int getZ() {
         return z;
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    public static class MessageHandlerSendManualShot implements IMessageHandler<MessageSendManualShot, IMessage> {
+        @Override
+        public IMessage onMessage(MessageSendManualShot messageIn, MessageContext ctxIn) {
+            final MessageSendManualShot message = messageIn;
+            final MessageContext ctx = ctxIn;
+            ((WorldServer) ctx.getServerHandler().player.getEntityWorld()).addScheduledTask(() -> {
+                World world = ctx.getServerHandler().player.getEntityWorld();
+                TurretHead turret = (TurretHead) world.getTileEntity(new BlockPos(message.getX(), message.getY(), message.getZ()));
+
+                turret.forceShot();
+            });
+            return null;
+        }
     }
 }

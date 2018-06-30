@@ -1,10 +1,7 @@
 package omtteam.omtcontrol.handler.recipes;
 
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @SuppressWarnings("deprecation")
 class EnderIORecipeHandler {
@@ -20,8 +17,8 @@ class EnderIORecipeHandler {
         ItemStack darkSteel;
         ItemStack conductiveIron;
         ItemStack soularium;
-        
-		/* OMModItems */
+
+        /* OMModItems */
         /*
         Block capBankBlock = GameRegistry.findBlock("EnderIO", "blockCapBank");
         capacitorBank = new ItemStack(capBankBlock, 1, 2);

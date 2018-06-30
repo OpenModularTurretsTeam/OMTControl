@@ -117,15 +117,6 @@ public interface ITurtleAccess {
     void setSelectedSlot(int slot);
 
     /**
-     * Set the colour of the turtle to a RGB number.
-     *
-     * @param colour The colour this turtle should be changed to. This should be a RGB colour between {@code 0x000000}
-     *               and {@code 0xFFFFFF} or -1 to reset to the default colour.
-     * @see #getColour()
-     */
-    void setColour(int colour);
-
-    /**
      * Get the colour of this turtle as a RGB number.
      *
      * @return The colour this turtle is. This will be a RGB colour between {@code 0x000000} and {@code 0xFFFFFF} or
@@ -133,6 +124,15 @@ public interface ITurtleAccess {
      * @see #setColour(int)
      */
     int getColour();
+
+    /**
+     * Set the colour of the turtle to a RGB number.
+     *
+     * @param colour The colour this turtle should be changed to. This should be a RGB colour between {@code 0x000000}
+     *               and {@code 0xFFFFFF} or -1 to reset to the default colour.
+     * @see #getColour()
+     */
+    void setColour(int colour);
 
     /**
      * Get the inventory of this turtle

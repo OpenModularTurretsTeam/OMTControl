@@ -5,8 +5,6 @@ import omtteam.omtcontrol.handler.EventsHandler;
 import omtteam.omtcontrol.handler.NetworkingHandler;
 import omtteam.omtcontrol.handler.recipes.RecipeHandler;
 import omtteam.omtcontrol.init.ModBlocks;
-import omtteam.omtcontrol.init.ModItems;
-import omtteam.omtcontrol.init.ModSounds;
 
 public class CommonProxy {
     public void preInit() {

@@ -12,9 +12,9 @@ import java.util.List;
 import static omtteam.omlib.util.InitHelper.registerItem;
 
 public class ModItems {
+    public static final List<Item> itemBlocks = new ArrayList<>();
     public static Item laserPointer;
     public static Item REMOTE_TURRET_CONFIG;
-    public static final List<Item> itemBlocks = new ArrayList<>();
 
     public static void init(IForgeRegistry<Item> registry) {
         laserPointer = registerItem(new ItemLaserPointer(), registry);

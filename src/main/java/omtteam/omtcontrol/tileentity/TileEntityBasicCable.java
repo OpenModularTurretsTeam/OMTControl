@@ -3,10 +3,10 @@ package omtteam.omtcontrol.tileentity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import omtteam.omlib.tileentity.TileEntityBase;
 import omtteam.omlib.api.network.INetworkCable;
 import omtteam.omlib.api.network.INetworkTile;
 import omtteam.omlib.api.network.OMLibNetwork;
+import omtteam.omlib.tileentity.TileEntityBase;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

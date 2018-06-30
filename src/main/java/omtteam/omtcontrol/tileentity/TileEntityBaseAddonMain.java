@@ -53,11 +53,17 @@ public class TileEntityBaseAddonMain extends TileEntityBase implements ITurretBa
         return getBase();
     }
 
-    public void setAllTurretsYawPitch(float yaw, float pitch) { getBase().setAllTurretsYawPitch(yaw, pitch); }
+    public void setAllTurretsYawPitch(float yaw, float pitch) {
+        getBase().setAllTurretsYawPitch(yaw, pitch);
+    }
 
-    public int forceShootAllTurrets() { return getBase().forceShootAllTurrets(); }
+    public int forceShootAllTurrets() {
+        return getBase().forceShootAllTurrets();
+    }
 
-    public void setAllTurretsForceFire(boolean state) { getBase().setAllTurretsForceFire(state); }
+    public void setAllTurretsForceFire(boolean state) {
+        getBase().setAllTurretsForceFire(state);
+    }
 
     public TurretBase getBase() {
         return TurretHeadUtil.getTurretBase(this.getWorld(), this.pos);

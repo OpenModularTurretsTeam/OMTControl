@@ -18,23 +18,6 @@ public class MessageSetYawPitch implements IMessage {
     public MessageSetYawPitch() {
     }
 
-    @SuppressWarnings("ConstantConditions")
-    public static class MessageHandlerSetYawPitch implements IMessageHandler<MessageSetYawPitch, IMessage> {
-        @Override
-        public IMessage onMessage(MessageSetYawPitch messageIn, MessageContext ctxIn) {
-            final MessageSetYawPitch message = messageIn;
-            final MessageContext ctx = ctxIn;
-            ((WorldServer) ctx.getServerHandler().player.getEntityWorld()).addScheduledTask(() -> {
-                World world = ctx.getServerHandler().player.getEntityWorld();
-                TurretHead turret = (TurretHead) world.getTileEntity(new BlockPos(message.getX(), message.getY(), message.getZ()));
-
-                turret.setPitch(message.pitch);
-                turret.setYaw(message.yaw);
-            });
-            return null;
-        }
-    }
-
     public MessageSetYawPitch(int x, int y, int z, float yaw, float pitch) {
         this.x = x;
         this.y = y;
@@ -74,5 +57,22 @@ public class MessageSetYawPitch implements IMessage {
 
     private int getZ() {
         return z;
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    public static class MessageHandlerSetYawPitch implements IMessageHandler<MessageSetYawPitch, IMessage> {
+        @Override
+        public IMessage onMessage(MessageSetYawPitch messageIn, MessageContext ctxIn) {
+            final MessageSetYawPitch message = messageIn;
+            final MessageContext ctx = ctxIn;
+            ((WorldServer) ctx.getServerHandler().player.getEntityWorld()).addScheduledTask(() -> {
+                World world = ctx.getServerHandler().player.getEntityWorld();
+                TurretHead turret = (TurretHead) world.getTileEntity(new BlockPos(message.getX(), message.getY(), message.getZ()));
+
+                turret.setPitch(message.pitch);
+                turret.setYaw(message.yaw);
+            });
+            return null;
+        }
     }
 }

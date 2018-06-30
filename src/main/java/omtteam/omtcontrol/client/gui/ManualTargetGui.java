@@ -84,13 +84,13 @@ public class ManualTargetGui extends GuiContainer implements IHasTooltips {
         TrustedPlayer trustedPlayer = PlayerUtil.getTrustedPlayer(player, base);
         if (PlayerUtil.isPlayerOwner(player, base) || trustedPlayer != null && (trustedPlayer.getAccessMode() == EnumAccessMode.CHANGE_SETTINGS || trustedPlayer.getAccessMode() == EnumAccessMode.ADMIN)) {
             this.buttonList.add(new GuiButton(1, x + 52, y + 3, 120, 20,
-                    safeLocalize(OMTControlNames.Localizations.GUI.SET_YAW_PITCH)));
+                                              safeLocalize(OMTControlNames.Localizations.GUI.SET_YAW_PITCH)));
             this.buttonList.add(new GuiButton(2, x + 52, y + 23, 120, 20,
-                    safeLocalize(OMTNames.Localizations.GUI.TOGGLE) + " " + safeLocalize(OMTNames.Localizations.GUI.AUTO_FIRE)));
+                                              safeLocalize(OMTNames.Localizations.GUI.TOGGLE) + " " + safeLocalize(OMTNames.Localizations.GUI.AUTO_FIRE)));
             this.buttonList.add(new GuiButton(3, x + 52, y + 43, 120, 20,
-                    safeLocalize(safeLocalize(OMTControlNames.Localizations.GUI.SHOOT_TURRET))));
+                                              safeLocalize(safeLocalize(OMTControlNames.Localizations.GUI.SHOOT_TURRET))));
             this.buttonList.add(new GuiButton(4, x + 52, y + 63, 120, 20,
-                    safeLocalize(OMTNames.Localizations.GUI.TOGGLE) + " " + safeLocalize(OMTControlNames.Localizations.GUI.SELECTED_TURRET)));
+                                              safeLocalize(OMTNames.Localizations.GUI.TOGGLE) + " " + safeLocalize(OMTControlNames.Localizations.GUI.SELECTED_TURRET)));
         }
         ArrayList<EnumFacing> validFacings = new ArrayList<>();
         turrets.forEach((k, v) -> validFacings.add(k));

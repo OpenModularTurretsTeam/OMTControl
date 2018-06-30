@@ -24,7 +24,6 @@ import omtteam.omtcontrol.reference.Reference;
 import omtteam.omtcontrol.tileentity.TileEntityHackingTerminal;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class BlockHackingTerminal extends BlockAbstractTileEntity {
 
@@ -52,7 +51,7 @@ public class BlockHackingTerminal extends BlockAbstractTileEntity {
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (hand.equals(EnumHand.OFF_HAND)) return true;
         TileEntity tileEntity = world.getTileEntity(pos);
-        if(tileEntity == null || player.isSneaking()) return false;
+        if (tileEntity == null || player.isSneaking()) return false;
 
         player.openGui(OMTControl.instance, GUI_ID, world, pos.getX(), pos.getY(), pos.getZ());
         return true;
@@ -60,38 +59,33 @@ public class BlockHackingTerminal extends BlockAbstractTileEntity {
 
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         TileEntity te = world.getTileEntity(pos);
-        if(te instanceof TileEntityHackingTerminal) {
+        if (te instanceof TileEntityHackingTerminal) {
             TileEntityHackingTerminal tileEntityHackingTerminal = (TileEntityHackingTerminal) te;
             tileEntityHackingTerminal.setOwner(placer.getName());
         }
     }
 
     @Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
+    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
     }
 
-    public IBlockState getStateFromMeta(int meta)
-    {
+    public IBlockState getStateFromMeta(int meta) {
         EnumFacing enumfacing = EnumFacing.getFront(meta);
 
-        if (enumfacing.getAxis() == EnumFacing.Axis.Y)
-        {
+        if (enumfacing.getAxis() == EnumFacing.Axis.Y) {
             enumfacing = EnumFacing.NORTH;
         }
 
         return this.getDefaultState().withProperty(FACING, enumfacing);
     }
 
-    public int getMetaFromState(IBlockState state)
-    {
-        return ((EnumFacing)state.getValue(FACING)).getIndex();
+    public int getMetaFromState(IBlockState state) {
+        return ((EnumFacing) state.getValue(FACING)).getIndex();
     }
 
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {FACING});
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[]{FACING});
     }
 
     @Override
@@ -107,8 +101,7 @@ public class BlockHackingTerminal extends BlockAbstractTileEntity {
     }*/
 
     @Override
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-    {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return new AxisAlignedBB(0.2f, 0.0f, 0.2f, 0.8f, 0.65f, 0.82f);
     }
 }

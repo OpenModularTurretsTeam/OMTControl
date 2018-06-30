@@ -14,15 +14,15 @@ public class NetworkingHandler {
 
     public static void initNetworking() {
         INSTANCE.registerMessage(MessageManualTarget.MessageHandlerManualTarget.class,
-                MessageManualTarget.class, 0, Side.CLIENT);
+                                 MessageManualTarget.class, 0, Side.CLIENT);
 
         INSTANCE.registerMessage(MessageSendManualShot.MessageHandlerSendManualShot.class,
-                MessageSendManualShot.class, 1, Side.SERVER);
+                                 MessageSendManualShot.class, 1, Side.SERVER);
 
         INSTANCE.registerMessage(MessageSetAutoFire.MessageHandlerSetAutoFire.class,
-                MessageSetAutoFire.class, 2, Side.SERVER);
+                                 MessageSetAutoFire.class, 2, Side.SERVER);
 
         INSTANCE.registerMessage(MessageSetYawPitch.MessageHandlerSetYawPitch.class,
-                MessageSetYawPitch.class, 3, Side.SERVER);
+                                 MessageSetYawPitch.class, 3, Side.SERVER);
     }
 }

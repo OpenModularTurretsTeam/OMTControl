@@ -18,22 +18,6 @@ public class MessageSetAutoFire implements IMessage {
     public MessageSetAutoFire() {
     }
 
-    @SuppressWarnings("ConstantConditions")
-    public static class MessageHandlerSetAutoFire implements IMessageHandler<MessageSetAutoFire, IMessage> {
-        @Override
-        public IMessage onMessage(MessageSetAutoFire messageIn, MessageContext ctxIn) {
-            final MessageSetAutoFire message = messageIn;
-            final MessageContext ctx = ctxIn;
-            ((WorldServer) ctx.getServerHandler().player.getEntityWorld()).addScheduledTask(() -> {
-                World world = ctx.getServerHandler().player.getEntityWorld();
-                TurretHead turret = (TurretHead) world.getTileEntity(new BlockPos(message.getX(), message.getY(), message.getZ()));
-
-                turret.setAutoFire(message.autoFire);
-            });
-            return null;
-        }
-    }
-
     public MessageSetAutoFire(int x, int y, int z, boolean autoFire) {
         this.x = x;
         this.y = y;
@@ -70,5 +54,21 @@ public class MessageSetAutoFire implements IMessage {
 
     private int getZ() {
         return z;
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    public static class MessageHandlerSetAutoFire implements IMessageHandler<MessageSetAutoFire, IMessage> {
+        @Override
+        public IMessage onMessage(MessageSetAutoFire messageIn, MessageContext ctxIn) {
+            final MessageSetAutoFire message = messageIn;
+            final MessageContext ctx = ctxIn;
+            ((WorldServer) ctx.getServerHandler().player.getEntityWorld()).addScheduledTask(() -> {
+                World world = ctx.getServerHandler().player.getEntityWorld();
+                TurretHead turret = (TurretHead) world.getTileEntity(new BlockPos(message.getX(), message.getY(), message.getZ()));
+
+                turret.setAutoFire(message.autoFire);
+            });
+            return null;
+        }
     }
 }

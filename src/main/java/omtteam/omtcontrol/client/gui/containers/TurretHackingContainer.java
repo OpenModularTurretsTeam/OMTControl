@@ -6,7 +6,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.util.math.BlockPos;
 
-public class TurretHackingContainer extends Container{
+public class TurretHackingContainer extends Container {
     private BlockPos pos;
 
     public TurretHackingContainer(InventoryPlayer inventoryPlayer, BlockPos posIn) {

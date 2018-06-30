@@ -27,27 +27,6 @@ public class MessageManualTarget implements IMessage {
     public MessageManualTarget() {
     }
 
-    public static class MessageHandlerManualTarget implements IMessageHandler<MessageManualTarget, IMessage> {
-        @Override
-        @SuppressWarnings("deprecation")
-        @SideOnly(Side.CLIENT)
-        public IMessage onMessage(MessageManualTarget messageIn, MessageContext ctx) {
-            final MessageManualTarget message = messageIn;
-            Minecraft.getMinecraft().addScheduledTask(() -> {
-
-                TileEntity tileEntity = TurretHeadUtil.getTurretBase(getWorld(FMLClientHandler.instance().getClient()), new BlockPos(message.x, message.y, message.z));
-                if (tileEntity != null) {
-                    message.turrets.forEach((k, v) -> {
-                        ((TurretBase) tileEntity).setTurretForceFire(EnumFacing.getFront(k), v.forceFire);
-                        ((TurretBase) tileEntity).setTurretYawPitch(EnumFacing.getFront(k), v.yaw, v.pitch);
-                    });
-                }
-            });
-            return null;
-        }
-
-    }
-
     public MessageManualTarget(BlockPos pos, HashMap<Integer, TurretHeadSettings> turrets) {
         this.x = pos.getX();
         this.y = pos.getY();
@@ -89,6 +68,27 @@ public class MessageManualTarget implements IMessage {
     public String toString() {
         return String.format(
                 "MessageManualTarget - x:%s, y:%s, z:%s", x, y, z);
+    }
+
+    public static class MessageHandlerManualTarget implements IMessageHandler<MessageManualTarget, IMessage> {
+        @Override
+        @SuppressWarnings("deprecation")
+        @SideOnly(Side.CLIENT)
+        public IMessage onMessage(MessageManualTarget messageIn, MessageContext ctx) {
+            final MessageManualTarget message = messageIn;
+            Minecraft.getMinecraft().addScheduledTask(() -> {
+
+                TileEntity tileEntity = TurretHeadUtil.getTurretBase(getWorld(FMLClientHandler.instance().getClient()), new BlockPos(message.x, message.y, message.z));
+                if (tileEntity != null) {
+                    message.turrets.forEach((k, v) -> {
+                        ((TurretBase) tileEntity).setTurretForceFire(EnumFacing.getFront(k), v.forceFire);
+                        ((TurretBase) tileEntity).setTurretYawPitch(EnumFacing.getFront(k), v.yaw, v.pitch);
+                    });
+                }
+            });
+            return null;
+        }
+
     }
 }
 
