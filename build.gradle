@@ -213,60 +213,69 @@ publishing {
 //// DETECTING COMMIT NAME AND ACTIVATING CURSE RELEASE \\\\
 
 def commit_release_type = getCommmitReleaseType()
-def getCommmitReleaseType(){
-    if(project.hasProperty("curseforge_key")){
+
+def getCommmitReleaseType() {
+    if (project.hasProperty("curseforge_key")) {
         def stdout = new ByteArrayOutputStream()
         try {
             exec {
                 commandLine 'git', 'log', '-1', '--pretty=tformat:%s'
                 standardOutput = stdout
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.print("SKIPPING CURSE RELEASE - FAILED TO RETRIEVE LAST COMMIT")
-            e.printStackTrace();
-            return 'none';
+            e.printStackTrace()
+            return 'none'
         }
         String commit = stdout.toString().trim()
 
-        if(commit.startsWith("CRelease") || commit.startsWith("crelease")){ System.out.println("FOUND NEW RELEASE - COMMIT: " + commit); return 'release' }
-        else if(commit.startsWith("CBeta") || commit.startsWith("cbeta")){ System.out.println("FOUND NEW BETA - COMMIT: " + commit); return 'beta' }
-        else if(commit.startsWith("CAlpha") || commit.startsWith("calpha")){ System.out.println("FOUND NEW ALPHA - COMMIT: " + commit); return 'alpha' }
-        else{System.out.println("SKIPPING CURSE RELEASE - COMMIT: " + commit)}
+        if (commit.startsWith("CRelease") || commit.startsWith("crelease")) {
+            System.out.println("FOUND NEW RELEASE - COMMIT: " + commit); return 'release'
+        } else if (commit.startsWith("CBeta") || commit.startsWith("cbeta")) {
+            System.out.println("FOUND NEW BETA - COMMIT: " + commit); return 'beta'
+        } else if (commit.startsWith("CAlpha") || commit.startsWith("calpha")) {
+            System.out.println("FOUND NEW ALPHA - COMMIT: " + commit); return 'alpha'
+        } else {
+            System.out.println("SKIPPING CURSE RELEASE - COMMIT: " + commit); return 'none'
+        }
     }
     System.out.println("SKIPPING CURSE RELEASE - NO CURSE API KEY")
-    return 'none';
+    return 'none'
 }
 
 tasks.curseforge.enabled = project.hasProperty("curseforge_key") && !commit_release_type.equals('none')
 curseforge {
-    if(project.hasProperty("curseforge_key") && !commit_release_type.equals('none')) {
+    if (project.hasProperty("curseforge_key") && !commit_release_type.equals('none')) {
         System.out.println("ATTEMPTING CURSE RELEASE")
         apiKey = project.properties["curseforge_key"]
+    } else {
+        return
     }
     project {
         id = config.curse_project_id
         addGameVersion '1.12.2'
 
         relations {
-            requiredLibrary 'omlib'
-            optionalLibrary 'ompd'
-            optionalLibrary 'ender-io'
-            optionalLibrary 'redstone-flux'
-            optionalLibrary 'thermalexpansion'
+            requiredDependency 'omlib'
+            requiredDependency 'openmodularturrets'
+            optionalDependency 'ompd'
+            optionalDependency 'ender-io'
+            optionalDependency 'redstone-flux'
+            optionalDependency 'thermalexpansion'
         }
 
         mainArtifact(jar) {
-            releaseType = commit_release_type.equals('none') ? 'release' : commit_release_type //throws if not release, beta or alpha
+            releaseType = commit_release_type
             changelog = file("${projectDir}/change_log.html").text
             changelogType = 'html'
         }
 
-        addArtifact(sourceJar){
+        addArtifact(sourceJar) {
             changelog = file("${projectDir}/change_log.html").text
             releaseType = 'alpha'
         }
 
-        addArtifact(deobfJar){
+        addArtifact(deobfJar) {
             changelog = file("${projectDir}/change_log.html").text
             releaseType = 'alpha'
         }
