@@ -1,6 +1,5 @@
 package omtteam.omtcontrol.handler.recipes;
 
-
 import net.minecraft.item.ItemStack;
 
 @SuppressWarnings("deprecation")

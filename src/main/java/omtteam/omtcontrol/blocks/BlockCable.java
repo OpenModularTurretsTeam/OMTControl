@@ -1,6 +1,5 @@
 package omtteam.omtcontrol.blocks;
 
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -14,7 +13,6 @@ import omtteam.omtcontrol.tileentity.TileEntityBasicCable;
 import javax.annotation.Nonnull;
 
 public class BlockCable extends BlockAbstractTileEntity {
-
 
     protected BlockCable() {
         super(Material.GLASS);

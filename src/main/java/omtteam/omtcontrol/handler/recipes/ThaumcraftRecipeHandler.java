@@ -1,6 +1,5 @@
 package omtteam.omtcontrol.handler.recipes;
 
-
 @SuppressWarnings("unused")
 class ThaumcraftRecipeHandler {
     /*public static void init() {

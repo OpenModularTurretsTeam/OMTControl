@@ -31,7 +31,6 @@ public class TileEntityHackingTerminal extends TileEntityBase implements ITickab
     private String owner;
     private int hackedConsoles = 0;
 
-
     public void setOwner(String owner) {
         this.owner = owner;
     }
@@ -64,7 +63,6 @@ public class TileEntityHackingTerminal extends TileEntityBase implements ITickab
                 if (getTotalHacksCompleted() >= 1) {
                     startHack = false;
                 }
-
             } else if (secondCounter == 30) {
                 secondCounter = 0;
             }
@@ -135,7 +133,6 @@ public class TileEntityHackingTerminal extends TileEntityBase implements ITickab
             trustedPlayer.setAccessMode(getConfigLevel());
             turretBase.getTrustedPlayers().add(trustedPlayer);
         }
-
     }
 
     private EnumAccessMode getConfigLevel() {
@@ -145,7 +142,6 @@ public class TileEntityHackingTerminal extends TileEntityBase implements ITickab
             return EnumAccessMode.OPEN_GUI;
         }
     }
-
 
     @Override
     public Container getServerContainer(InventoryPlayer invPlayer, BlockPos blockPos) {

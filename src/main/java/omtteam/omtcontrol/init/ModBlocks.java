@@ -18,12 +18,10 @@ public class ModBlocks {
     public static Block HACKING_TERMINAL;
     public static Block baseAddonMain;
 
-
     public static void initBlocks(IForgeRegistry<Block> registry) {
         baseAddonMain = registerBlock(new BlockBaseAddonMain(), registry, ModItems.itemBlocks);
         HACKING_TERMINAL = registerBlock(new BlockHackingTerminal(), registry, ModItems.itemBlocks);
     }
-
 
     public static void initTileEntities() {
         GameRegistry.registerTileEntity(TileEntityBaseAddonMain.class, toResource(OMTControlNames.Blocks.baseAddonMain));

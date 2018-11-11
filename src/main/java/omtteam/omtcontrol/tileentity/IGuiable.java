@@ -10,5 +10,4 @@ public interface IGuiable {
     public Container getServerContainer(InventoryPlayer invPlayer, BlockPos blockPos);
 
     public Gui getClientGui(InventoryPlayer invPlayer, BlockPos blockPos);
-
 }

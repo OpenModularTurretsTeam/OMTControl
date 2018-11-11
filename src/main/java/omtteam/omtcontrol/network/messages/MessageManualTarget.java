@@ -19,7 +19,6 @@ import java.util.HashMap;
 
 import static omtteam.omlib.proxy.ClientProxy.getWorld;
 
-
 public class MessageManualTarget implements IMessage {
     private int x, y, z;
     private HashMap<Integer, TurretHeadSettings> turrets = new HashMap<>();
@@ -88,7 +87,6 @@ public class MessageManualTarget implements IMessage {
             });
             return null;
         }
-
     }
 }
 

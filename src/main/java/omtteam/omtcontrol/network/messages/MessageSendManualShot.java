@@ -9,7 +9,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import omtteam.openmodularturrets.tileentity.turrets.TurretHead;
 
-
 @SuppressWarnings("unused")
 public class MessageSendManualShot implements IMessage {
     private int x, y, z;
@@ -22,7 +21,6 @@ public class MessageSendManualShot implements IMessage {
         this.x = x;
         this.y = y;
         this.z = z;
-
     }
 
     @Override

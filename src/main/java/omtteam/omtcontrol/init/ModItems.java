@@ -1,6 +1,5 @@
 package omtteam.omtcontrol.init;
 
-
 import net.minecraft.item.Item;
 import net.minecraftforge.registries.IForgeRegistry;
 import omtteam.omtcontrol.items.ItemLaserPointer;
@@ -19,7 +18,6 @@ public class ModItems {
     public static void init(IForgeRegistry<Item> registry) {
         laserPointer = registerItem(new ItemLaserPointer(), registry);
         REMOTE_TURRET_CONFIG = registerItem(new ItemRemoteTurretConfig(), registry);
-
 
         for (Item item : itemBlocks) {
             registry.register(item);

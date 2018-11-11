@@ -20,7 +20,6 @@ import java.util.List;
 
 import static omtteam.omlib.util.GeneralUtil.safeLocalize;
 
-
 /**
  * Created by Keridos on 17/05/17.
  * This Class

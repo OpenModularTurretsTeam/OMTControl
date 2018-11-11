@@ -13,7 +13,6 @@ import omtteam.omtcontrol.init.ModItems;
 import omtteam.omtcontrol.reference.OMTControlNames;
 import omtteam.omtcontrol.reference.Reference;
 
-
 @SuppressWarnings("unused")
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
@@ -63,7 +62,6 @@ public class ClientProxy extends CommonProxy {
     @Override
     protected void initTileRenderers() {
         super.initTileRenderers();
-
     }
 
     @Override
@@ -71,11 +69,8 @@ public class ClientProxy extends CommonProxy {
         super.initEntityRenderers();
     }
 
-
     @Override
     public void initHandlers() {
         super.initHandlers();
     }
-
-
 }

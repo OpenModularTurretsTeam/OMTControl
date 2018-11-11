@@ -106,7 +106,6 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
             default:
                 return new TileEntityBaseAddonMain(state.getValue(META));
         }
-
     }
 
     @Override
@@ -125,12 +124,10 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
         return BlockBaseAddon.getBoundingBoxFromFacing(facing);
     }
 
-
     @Override
     public AxisAlignedBB getBoundingBoxFromFacing(EnumFacing facing, World world, BlockPos pos) {
         return BlockBaseAddon.getBoundingBoxFromFacing(facing).offset(pos);
     }
-
 
     @Override
     public boolean isFullBlock(IBlockState state) {

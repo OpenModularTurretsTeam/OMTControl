@@ -37,7 +37,6 @@ public class TurretHackingGui extends GuiContainer {
         list.add(hack);
 
         buttonList.addAll(list);
-
     }
 
     @Override
@@ -52,7 +51,6 @@ public class TurretHackingGui extends GuiContainer {
         TileEntityHackingTerminal hackingTerminal = (TileEntityHackingTerminal) te;
         this.fontRenderer.setUnicodeFlag(true);
         this.fontRenderer.drawString("OMTC 2018 Hacking, Inc.", x + 43, y + 10, EnumDyeColor.LIME.getColorValue());
-
 
         String formatted = String.format("Hacking...%.2f%%", hackingTerminal.getTotalCompletionPercentage() * 100);
         OMTControl.getLogger().error(formatted);

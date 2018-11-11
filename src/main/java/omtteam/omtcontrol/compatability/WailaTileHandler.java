@@ -36,7 +36,6 @@ public class WailaTileHandler implements IWailaDataProvider {
     @Optional.Method(modid = "Waila")
     public static void callbackRegister(IWailaRegistrar register) {
         WailaTileHandler instance = new WailaTileHandler();
-
     }
 
     /**

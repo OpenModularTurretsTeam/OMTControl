@@ -29,7 +29,6 @@ public class OMTControlTab extends CreativeTabs {
         return new ItemStack(ModBlocks.laserTurret);
     }
 
-
     public Item getItem() {
         return new ItemBlockLaserTurret(ModBlocks.laserTurret);
     }
