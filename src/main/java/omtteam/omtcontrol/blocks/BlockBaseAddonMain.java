@@ -26,9 +26,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import omtteam.omlib.api.IHasItemBlock;
-import omtteam.omlib.util.EnumAccessMode;
-import omtteam.omlib.util.PlayerUtil;
-import omtteam.omlib.util.TrustedPlayer;
+import omtteam.omlib.util.player.PlayerUtil;
 import omtteam.omtcontrol.OMTControl;
 import omtteam.omtcontrol.init.ModBlocks;
 import omtteam.omtcontrol.items.ItemLaserPointer;
@@ -45,7 +43,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import static omtteam.omlib.util.GeneralUtil.safeLocalize;
-import static omtteam.omlib.util.PlayerUtil.addChatMessage;
+import static omtteam.omlib.util.player.PlayerUtil.addChatMessage;
 
 /**
  * Created by Keridos on 09/02/17.
@@ -169,16 +167,11 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
             return true;
         }
         if (state.getValue(META) == 0) {
-            //TODO: Remove code repetition
-            TrustedPlayer trustedPlayer = PlayerUtil.getTrustedPlayer(playerIn, base);
-            if (trustedPlayer != null) {
-                if (base.getTrustedPlayer(playerIn.getUniqueID()).getAccessMode() == EnumAccessMode.OPEN_GUI) {
-                    handleMeta0(playerIn, pos, worldIn, false);
-                }
-            }
-            boolean isOwner = PlayerUtil.isPlayerOwner(playerIn, base);
-            if (isOwner) {
-                handleMeta0(playerIn, pos, worldIn, isOwner);
+
+            if (PlayerUtil.isPlayerOwner(playerIn, base)) {
+                handleMeta0(playerIn, pos, worldIn, true);
+            } else if (PlayerUtil.canPlayerAccessBlock(playerIn, base)) {
+                handleMeta0(playerIn, pos, worldIn, false);
             } else {
                 addChatMessage(playerIn, new TextComponentString(safeLocalize("status.ownership")));
             }
