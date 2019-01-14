@@ -16,6 +16,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import omtteam.omlib.blocks.BlockAbstractTileEntity;
 import omtteam.omtcontrol.OMTControl;
 import omtteam.omtcontrol.handler.GuiHandler;
@@ -37,8 +38,9 @@ public class BlockHackingTerminal extends BlockAbstractTileEntity {
         this.setSoundType(SoundType.STONE);
         this.setUnlocalizedName(OMTControlNames.Blocks.HACKING_TERMINAL);
         this.setRegistryName(Reference.MOD_ID, OMTControlNames.Blocks.HACKING_TERMINAL);
-
-        GuiHandler.getInstance().insertBlock(GUI_ID, TileEntityHackingTerminal.class);
+        if (FMLCommonHandler.instance().getSide().isClient()) {
+            GuiHandler.getInstance().insertBlock(GUI_ID, TileEntityHackingTerminal.class);
+        }
     }
 
     @Nonnull

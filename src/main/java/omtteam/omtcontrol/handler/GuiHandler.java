@@ -26,6 +26,7 @@ public class GuiHandler implements IGuiHandler {
         return instance;
     }
 
+    @SideOnly(Side.CLIENT)
     public void insertBlock(int guiId, Class<? extends IGuiable> tileEntity) {
         try {
             guiBlocks.put(guiId, tileEntity.newInstance());
