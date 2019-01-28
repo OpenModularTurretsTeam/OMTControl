@@ -7,6 +7,7 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import omtteam.openmodularturrets.tileentity.turrets.AbstractDirectedTurret;
 import omtteam.openmodularturrets.tileentity.turrets.TurretHead;
 
 @SuppressWarnings("unused")
@@ -67,9 +68,10 @@ public class MessageSetYawPitch implements IMessage {
             ((WorldServer) ctx.getServerHandler().player.getEntityWorld()).addScheduledTask(() -> {
                 World world = ctx.getServerHandler().player.getEntityWorld();
                 TurretHead turret = (TurretHead) world.getTileEntity(new BlockPos(message.getX(), message.getY(), message.getZ()));
-
-                turret.setPitch(message.pitch);
-                turret.setYaw(message.yaw);
+                if (turret instanceof AbstractDirectedTurret) {
+                    ((AbstractDirectedTurret) turret).setPitch(message.pitch);
+                    ((AbstractDirectedTurret) turret).setYaw(message.yaw);
+                }
             });
             return null;
         }

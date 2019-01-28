@@ -23,6 +23,7 @@ import omtteam.omtcontrol.network.messages.MessageSetYawPitch;
 import omtteam.omtcontrol.reference.OMTControlNames;
 import omtteam.openmodularturrets.reference.OMTNames;
 import omtteam.openmodularturrets.tileentity.TurretBase;
+import omtteam.openmodularturrets.tileentity.turrets.AbstractDirectedTurret;
 import omtteam.openmodularturrets.tileentity.turrets.TurretHead;
 import omtteam.openmodularturrets.util.TurretHeadUtil;
 import org.lwjgl.opengl.GL11;
@@ -189,8 +190,10 @@ public class ManualTargetGui extends GuiContainer implements IHasTooltips {
             TurretHead turret = turrets.get(selectedTurretFacing);
             turretInfo.add("\u00A73" + safeLocalize(OMTNames.Localizations.GUI.TURRET) + ":");
             turretInfo.add("\u00A76" + safeLocalize(OMTNames.Localizations.GUI.TYPE) + ": \u00A72" + safeLocalizeBlockName(turret.getBlockType().getRegistryName().toString()).replaceAll(" Turret", ""));
-            turretInfo.add("\u00A76" + safeLocalize(OMTNames.Localizations.GUI.YAW) + ": \u00A77" + turret.getYaw());
-            turretInfo.add("\u00A76" + safeLocalize(OMTNames.Localizations.GUI.PITCH) + ": \u00A77" + turret.getPitch());
+            if (turret instanceof AbstractDirectedTurret) {
+                turretInfo.add("\u00A76" + safeLocalize(OMTNames.Localizations.GUI.YAW) + ": \u00A77" + ((AbstractDirectedTurret) turret).getYaw());
+                turretInfo.add("\u00A76" + safeLocalize(OMTNames.Localizations.GUI.PITCH) + ": \u00A77" + ((AbstractDirectedTurret) turret).getPitch());
+            }
             turretInfo.add("\u00A76" + safeLocalize(OMTNames.Localizations.GUI.AUTO_FIRE) + ": " + getColoredBooleanLocalizationYesNo(turret.getAutoFire()));
 
             turretInfo.add("\u00A76" + safeLocalize(OMLibNames.Localizations.GUI.FACING) + ": \u00A72" + selectedTurretFacing.toString());
@@ -253,9 +256,9 @@ public class ManualTargetGui extends GuiContainer implements IHasTooltips {
     }
 
     private void getYawPitchFromTurret() {
-        if (selectedTurretFacing != null) {
-            yaw.setText(Float.toString(turrets.get(selectedTurretFacing).getYaw()));
-            pitch.setText(Float.toString(turrets.get(selectedTurretFacing).getPitch()));
+        if (selectedTurretFacing != null && turrets.get(selectedTurretFacing) instanceof AbstractDirectedTurret) {
+            yaw.setText(Float.toString(((AbstractDirectedTurret) turrets.get(selectedTurretFacing)).getYaw()));
+            pitch.setText(Float.toString(((AbstractDirectedTurret) turrets.get(selectedTurretFacing)).getPitch()));
         }
     }
 }
