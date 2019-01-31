@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.chunk.Chunk;
 import omtteam.omlib.tileentity.TileEntityBase;
-import omtteam.omlib.util.EnumAccessMode;
+import omtteam.omlib.util.player.EnumAccessMode;
 import omtteam.omlib.util.player.PlayerUtil;
 import omtteam.omlib.util.player.TrustedPlayer;
 import omtteam.omtcontrol.client.gui.TurretHackingGui;
