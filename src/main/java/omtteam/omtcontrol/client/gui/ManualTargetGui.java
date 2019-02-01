@@ -11,10 +11,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import omtteam.omlib.api.gui.IHasTooltips;
+import omtteam.omlib.api.permission.EnumAccessLevel;
+import omtteam.omlib.api.permission.TrustedPlayer;
 import omtteam.omlib.reference.OMLibNames;
-import omtteam.omlib.util.player.EnumAccessMode;
 import omtteam.omlib.util.player.PlayerUtil;
-import omtteam.omlib.util.player.TrustedPlayer;
 import omtteam.omtcontrol.client.gui.containers.BaseAddonBlockContainer;
 import omtteam.omtcontrol.handler.NetworkingHandler;
 import omtteam.omtcontrol.network.messages.MessageSendManualShot;
@@ -83,7 +83,7 @@ public class ManualTargetGui extends GuiContainer implements IHasTooltips {
         yaw.setMaxStringLength(5);
         pitch.setMaxStringLength(5);
         TrustedPlayer trustedPlayer = PlayerUtil.getTrustedPlayer(player, base);
-        if (PlayerUtil.isPlayerOwner(player, base) || trustedPlayer != null && (trustedPlayer.getAccessMode() == EnumAccessMode.CHANGE_SETTINGS || trustedPlayer.getAccessMode() == EnumAccessMode.ADMIN)) {
+        if (PlayerUtil.isPlayerOwner(player, base) || trustedPlayer != null && (trustedPlayer.getAccessLevel() == EnumAccessLevel.CHANGE_SETTINGS || trustedPlayer.getAccessLevel() == EnumAccessLevel.ADMIN)) {
             this.buttonList.add(new GuiButton(1, x + 52, y + 3, 120, 20,
                                               safeLocalize(OMTControlNames.Localizations.GUI.SET_YAW_PITCH)));
             this.buttonList.add(new GuiButton(2, x + 52, y + 23, 120, 20,

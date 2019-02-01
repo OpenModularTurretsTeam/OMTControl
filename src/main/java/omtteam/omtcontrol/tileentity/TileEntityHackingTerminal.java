@@ -8,10 +8,10 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.chunk.Chunk;
+import omtteam.omlib.api.permission.EnumAccessLevel;
+import omtteam.omlib.api.permission.TrustedPlayer;
 import omtteam.omlib.tileentity.TileEntityBase;
-import omtteam.omlib.util.player.EnumAccessMode;
 import omtteam.omlib.util.player.PlayerUtil;
-import omtteam.omlib.util.player.TrustedPlayer;
 import omtteam.omtcontrol.client.gui.TurretHackingGui;
 import omtteam.omtcontrol.client.gui.containers.TurretHackingContainer;
 import omtteam.omtcontrol.handler.ConfigHandler;
@@ -113,7 +113,7 @@ public class TileEntityHackingTerminal extends TileEntityBase implements ITickab
                 chunk = this.getWorld().getChunkFromChunkCoords(pos.x, pos.z);
                 for (BlockPos blockPos : chunk.getTileEntityMap().keySet()) {
                     TileEntity tile = chunk.getTileEntityMap().get(blockPos);
-                    if (tile instanceof TurretBase && ((TurretBase) tile).getTrustedPlayer(owner) == null) {
+                    if (tile instanceof TurretBase && ((TurretBase) tile).getTrustManager().getTrustedPlayer(owner) == null) {
                         list.add(blockPos);
                     }
                 }
@@ -130,16 +130,16 @@ public class TileEntityHackingTerminal extends TileEntityBase implements ITickab
             TrustedPlayer trustedPlayer = new TrustedPlayer(owner);
             trustedPlayer.setUuid(PlayerUtil.getPlayerUUID(owner));
             trustedPlayer.setHacked(true);
-            trustedPlayer.setAccessMode(getConfigLevel());
-            turretBase.getTrustedPlayers().add(trustedPlayer);
+            trustedPlayer.setAccessLevel(getConfigLevel());
+            turretBase.getTrustManager().getTrustedPlayers().add(trustedPlayer);
         }
     }
 
-    private EnumAccessMode getConfigLevel() {
+    private EnumAccessLevel getConfigLevel() {
         try {
-            return EnumAccessMode.valueOf(ConfigHandler.maximumHackingLevel);
+            return EnumAccessLevel.valueOf(ConfigHandler.maximumHackingLevel);
         } catch (IllegalArgumentException e) {
-            return EnumAccessMode.OPEN_GUI;
+            return EnumAccessLevel.OPEN_GUI;
         }
     }
 
