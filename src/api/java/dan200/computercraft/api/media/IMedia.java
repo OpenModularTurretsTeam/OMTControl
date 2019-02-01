@@ -6,7 +6,9 @@
 
 package dan200.computercraft.api.media;
 
+import dan200.computercraft.api.ComputerCraftAPI;
 import dan200.computercraft.api.filesystem.IMount;
+import dan200.computercraft.api.filesystem.IWritableMount;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
@@ -63,11 +65,11 @@ public interface IMedia {
      * @param stack The itemstack to inspect.
      * @param world The world in which the item and disk drive reside.
      * @return The mount, or null if this item does not represent an item with data. If the mount returned also
-     * implements {@link dan200.computercraft.api.filesystem.IWritableMount}, it will mounted using mountWritable()
-     * @see dan200.computercraft.api.filesystem.IMount
-     * @see dan200.computercraft.api.filesystem.IWritableMount
-     * @see dan200.computercraft.api.ComputerCraftAPI#createSaveDirMount(World, String, long)
-     * @see dan200.computercraft.api.ComputerCraftAPI#createResourceMount(Class, String, String)
+     * implements {@link IWritableMount}, it will mounted using mountWritable()
+     * @see IMount
+     * @see IWritableMount
+     * @see ComputerCraftAPI#createSaveDirMount(World, String, long)
+     * @see ComputerCraftAPI#createResourceMount(Class, String, String)
      */
     @Nullable
     IMount createDataMount(@Nonnull ItemStack stack, @Nonnull World world);

@@ -6,6 +6,7 @@
 
 package dan200.computercraft.api.permissions;
 
+import dan200.computercraft.api.ComputerCraftAPI;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -16,7 +17,7 @@ import javax.annotation.Nonnull;
  * <p>
  * Turtles will call these methods before attempting to perform an action, allowing them to be cancelled.
  *
- * @see dan200.computercraft.api.ComputerCraftAPI#registerPermissionProvider(ITurtlePermissionProvider)
+ * @see ComputerCraftAPI#registerPermissionProvider(ITurtlePermissionProvider)
  */
 public interface ITurtlePermissionProvider {
     /**

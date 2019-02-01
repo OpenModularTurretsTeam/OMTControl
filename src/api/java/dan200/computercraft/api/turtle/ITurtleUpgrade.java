@@ -21,7 +21,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.vecmath.Matrix4f;
 
-
 /**
  * The primary interface for defining an update for Turtles. A turtle update
  * can either be a new tool, or a new peripheral.

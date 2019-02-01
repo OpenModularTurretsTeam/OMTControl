@@ -9,6 +9,7 @@ package dan200.computercraft.api.turtle;
 import dan200.computercraft.api.lua.ILuaContext;
 import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.peripheral.IPeripheral;
+import dan200.computercraft.api.permissions.ITurtlePermissionProvider;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -53,7 +54,7 @@ public interface ITurtleAccess {
      * @param pos   The new position to move it to.
      * @return Whether the movement was successful. It may fail if the block was not loaded or the block placement
      * was cancelled. Note this will not check
-     * {@link dan200.computercraft.api.permissions.ITurtlePermissionProvider#isBlockEnterable(World, BlockPos)}.
+     * {@link ITurtlePermissionProvider#isBlockEnterable(World, BlockPos)}.
      * @throws UnsupportedOperationException When attempting to teleport on the client side.
      */
     boolean teleportTo(@Nonnull World world, @Nonnull BlockPos pos);
@@ -117,15 +118,6 @@ public interface ITurtleAccess {
     void setSelectedSlot(int slot);
 
     /**
-     * Get the colour of this turtle as a RGB number.
-     *
-     * @return The colour this turtle is. This will be a RGB colour between {@code 0x000000} and {@code 0xFFFFFF} or
-     * -1 if it has no colour.
-     * @see #setColour(int)
-     */
-    int getColour();
-
-    /**
      * Set the colour of the turtle to a RGB number.
      *
      * @param colour The colour this turtle should be changed to. This should be a RGB colour between {@code 0x000000}
@@ -133,6 +125,15 @@ public interface ITurtleAccess {
      * @see #getColour()
      */
     void setColour(int colour);
+
+    /**
+     * Get the colour of this turtle as a RGB number.
+     *
+     * @return The colour this turtle is. This will be a RGB colour between {@code 0x000000} and {@code 0xFFFFFF} or
+     * -1 if it has no colour.
+     * @see #setColour(int)
+     */
+    int getColour();
 
     /**
      * Get the inventory of this turtle

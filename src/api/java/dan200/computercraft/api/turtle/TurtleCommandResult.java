@@ -20,15 +20,6 @@ import javax.annotation.Nullable;
 public final class TurtleCommandResult {
     private static final TurtleCommandResult s_success = new TurtleCommandResult(true, null, null);
     private static final TurtleCommandResult s_emptyFailure = new TurtleCommandResult(false, null, null);
-    private final boolean m_success;
-    private final String m_errorMessage;
-    private final Object[] m_results;
-
-    private TurtleCommandResult(boolean success, String errorMessage, Object[] results) {
-        m_success = success;
-        m_errorMessage = errorMessage;
-        m_results = results;
-    }
 
     /**
      * Create a successful command result with no result.
@@ -78,6 +69,16 @@ public final class TurtleCommandResult {
         } else {
             return new TurtleCommandResult(false, errorMessage, null);
         }
+    }
+
+    private final boolean m_success;
+    private final String m_errorMessage;
+    private final Object[] m_results;
+
+    private TurtleCommandResult(boolean success, String errorMessage, Object[] results) {
+        m_success = success;
+        m_errorMessage = errorMessage;
+        m_results = results;
     }
 
     /**
