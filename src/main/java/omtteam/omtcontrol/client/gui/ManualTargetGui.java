@@ -180,7 +180,7 @@ public class ManualTargetGui extends GuiContainer implements IHasTooltips {
         FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
         ArrayList turretInfo = new ArrayList();
         turretInfo.add("\u00A73" + safeLocalize(OMTNames.Localizations.GUI.BASE) + ":");
-        turretInfo.add("\u00A76" + safeLocalize(OMLibNames.Localizations.GUI.OWNER) + ": \u00A7f" + base.getOwnerName());
+        turretInfo.add("\u00A76" + safeLocalize(OMLibNames.Localizations.GUI.OWNER) + ": \u00A7f" + base.getOwner().getName());
         turretInfo.add("\u00A76" + safeLocalize(OMLibNames.Localizations.GUI.ACTIVE) + ": " + (getColoredBooleanLocalizationYesNo(base.isActive())));
         turretInfo.add("\u00A76" + safeLocalize(OMTNames.Localizations.GUI.ATTACK_MOBS) + ": " + getColoredBooleanLocalizationYesNo(base.isAttacksMobs()));
         turretInfo.add("\u00A76" + safeLocalize(OMTNames.Localizations.GUI.ATTACK_NEUTRALS) + ": " + getColoredBooleanLocalizationYesNo(base.isAttacksNeutrals()));
