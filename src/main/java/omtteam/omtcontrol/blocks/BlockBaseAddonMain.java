@@ -35,8 +35,8 @@ import omtteam.omtcontrol.reference.OMTControlNames;
 import omtteam.omtcontrol.reference.Reference;
 import omtteam.omtcontrol.tileentity.TileEntityBaseAddonMain;
 import omtteam.omtcontrol.tileentity.TileEntityPlayerDefenseModule;
-import omtteam.openmodularturrets.blocks.BlockBaseAddon;
-import omtteam.openmodularturrets.blocks.BlockTurretBaseAddon;
+import omtteam.openmodularturrets.blocks.BlockBaseAttachment;
+import omtteam.openmodularturrets.blocks.BlockTurretBaseAttachment;
 import omtteam.openmodularturrets.tileentity.TurretBase;
 
 import javax.annotation.Nonnull;
@@ -49,7 +49,7 @@ import static omtteam.omlib.util.player.PlayerUtil.addChatMessage;
  * Created by Keridos on 09/02/17.
  * This Class
  */
-public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItemBlock {
+public class BlockBaseAddonMain extends BlockTurretBaseAttachment implements IHasItemBlock {
     public static final int SUBBLOCK_COUNT = 2;
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
     private static final PropertyInteger META = PropertyInteger.create("meta", 0, SUBBLOCK_COUNT - 1);
@@ -121,12 +121,12 @@ public class BlockBaseAddonMain extends BlockTurretBaseAddon implements IHasItem
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         IBlockState blockState = this.getActualState(state, source, pos);
         EnumFacing facing = blockState.getValue(FACING);
-        return BlockBaseAddon.getBoundingBoxFromFacing(facing);
+        return BlockBaseAttachment.getBoundingBoxFromFacing(facing);
     }
 
     @Override
     public AxisAlignedBB getBoundingBoxFromFacing(EnumFacing facing, World world, BlockPos pos) {
-        return BlockBaseAddon.getBoundingBoxFromFacing(facing).offset(pos);
+        return BlockBaseAttachment.getBoundingBoxFromFacing(facing).offset(pos);
     }
 
     @Override
