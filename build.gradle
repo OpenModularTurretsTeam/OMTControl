@@ -21,67 +21,6 @@ apply plugin: 'maven-publish'
 apply plugin: 'idea'
 apply plugin: 'java'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-// define the properties file
-ext.configFile = file "project.properties"
-
-configFile.withReader {
-    // read config.  it shall from now on be referenced as simply config or as project.config
-    def prop = new Properties()
-    prop.load(it)
-    project.ext.config = new ConfigSlurper().parse prop
-}
-config = project.ext.config
-
-version = "${config.minecraft_version}-${config.mod_version}"
-if (hasProperty('appendBuildNumber')) {
-    version = version + "-" + appendBuildNumber.toString()
-} else {
-    version = version + "-0"
-}
-
-group = "${config.group_id}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "${config.mod_id}"
-
-minecraft {
-    version = "${config.forge_version}"
-    runDir = "run"
-
-    replace "@VERSION@", project.version
-    replace "omlib@[0.0.0,)", "omlib@[" + config.omlib_version + ",)"
-    replace "openmodularturrets@[0.0.0,)", "openmodularturrets@[" + config.omt_version + ",)"
-    // the mappings can be changed at any time, and must be in the following format.
-    // snapshot_YYYYMMDD   snapshot are built nightly.
-    // stable_#            stables are built at the discretion of the MCP team.
-    // Use non-default mappings at your own risk. they may not always work.
-    // simply re-run your setup task after changing the mappings to update your workspace.
-    mappings = "snapshot_20171212"
-    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
-    //useDepAts = true
-}
-
-
-processResources {
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
-
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-
-        // replace version and mcversion
-        expand 'version': project.version, 'mcversion': project.minecraft.version
-    }
-
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-    }
-}
-
 repositories {
     maven {
         name "IGW"
@@ -136,6 +75,58 @@ repositories {
     }
 }
 
+sourceCompatibility = targetCompatibility = 1.8
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
+}
+
+version = "${minecraft_version}-${mod_version}"
+if (hasProperty('appendBuildNumber')) {
+    version = version + "-" + appendBuildNumber.toString()
+} else {
+    version = version + "-0"
+}
+
+group = "${group_id}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "${mod_id}"
+
+minecraft {
+    version = "${forge_version}"
+    runDir = "run"
+
+    replace "@VERSION@", project.version
+    replace "omlib@[0.0.0,)", "omlib@[" + omlib_version + ",)"
+    replace "openmodularturrets@[0.0.0,)", "openmodularturrets@[" + omt_version + ",)"
+    // the mappings can be changed at any time, and must be in the following format.
+    // snapshot_YYYYMMDD   snapshot are built nightly.
+    // stable_#            stables are built at the discretion of the MCP team.
+    // Use non-default mappings at your own risk. they may not always work.
+    // simply re-run your setup task after changing the mappings to update your workspace.
+    mappings = "snapshot_20171212"
+    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+    //useDepAts = true
+}
+
+
+processResources {
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+
+        // replace version and mcversion
+        expand 'version': project.version, 'mcversion': project.minecraft.version
+    }
+
+    // copy everything else, thats not the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
 def omlib_local = false
 configure(allprojects.findAll { it.name == 'OMLib' }) {
     omlib_local = true
@@ -157,20 +148,20 @@ configure(allprojects.findAll { it.name == 'OpenModularLighting' }) {
 }
 
 dependencies {
-    deobfCompile "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}"
-    deobfCompile "mcp.mobius.waila:Hwyla:${config.hwyla_version}_${config.minecraft_version_short}"
-    deobfCompile "li.cil.oc:OpenComputers:MC${config.minecraft_version}-${config.oc_version}"
-    compileOnly "net.industrial-craft:industrialcraft-2:${config.ic2_version}:dev"
-    compileOnly "net.darkhax.tesla:Tesla-${config.minecraft_version}:${config.tesla_version}:deobf"
-    compileOnly "cofh:RedstoneFlux:${config.minecraft_version_short}-${config.redstoneflux_version}:deobf"
+    deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
+    deobfCompile "mcp.mobius.waila:Hwyla:${hwyla_version}_${minecraft_version_short}"
+    deobfCompile "li.cil.oc:OpenComputers:MC${minecraft_version}-${oc_version}"
+    compileOnly "net.industrial-craft:industrialcraft-2:${ic2_version}:dev"
+    compileOnly "net.darkhax.tesla:Tesla-${minecraft_version}:${tesla_version}:deobf"
+    compileOnly "cofh:RedstoneFlux:${minecraft_version_short}-${redstoneflux_version}:deobf"
 
     if (!omlib_local) {
-        compile "omtteam:omlib:${config.minecraft_version}-${config.omlib_version}:dev"
+        compile "omtteam:omlib:${minecraft_version}-${omlib_version}:dev"
     } else {
         compile project(':OMLib')
     }
     if (!omt_local) {
-        compile "omtteam:openmodularturrets:${config.minecraft_version}-${config.omt_version}:dev"
+        compile "omtteam:openmodularturrets:${minecraft_version}-${omt_version}:dev"
     } else {
         compile project(':OpenModularTurrets')
     }
@@ -180,8 +171,8 @@ dependencies {
     if (oml_local) {
         runtime project(':OpenModularLighting')
     }
-    //runtimeOnly "com.enderio:EnderIO:${config.minecraft_version}-${config.enderio_version}"
-    //runtimeOnly "com.enderio.core:EnderCore:${config.minecraft_version}-${config.endercore_version}"
+    //runtimeOnly "com.enderio:EnderIO:${minecraft_version}-${enderio_version}"
+    //runtimeOnly "com.enderio.core:EnderCore:${minecraft_version}-${endercore_version}"
 }
 
 task deobfJar(type: Jar) {
@@ -195,9 +186,9 @@ publishing {
     tasks.publish.dependsOn 'build'
     publications {
         mavenJava(MavenPublication) {
-            groupId config.group_prefix
-            artifactId config.mod_id
-            version config.minecraft_version + "-" + project.version
+            groupId group_prefix
+            artifactId mod_id
+            version minecraft_version + "-" + project.version
             artifact jar
             artifact sourceJar
             artifact deobfJar
@@ -228,11 +219,11 @@ def getCommmitReleaseType() {
         String commit = stdout.toString().trim()
 
         if (commit.startsWith("CRelease") || commit.startsWith("crelease")) {
-            System.out.println("FOUND NEW RELEASE - COMMIT: " + commit); return 'release'
+            System.out.println("FOUND NEW RELEASE - COMMIT: ".concat(commit)); return 'release'
         } else if (commit.startsWith("CBeta") || commit.startsWith("cbeta")) {
-            System.out.println("FOUND NEW BETA - COMMIT: " + commit); return 'beta'
+            System.out.println("FOUND NEW BETA - COMMIT: ".concat(commit)); return 'beta'
         } else if (commit.startsWith("CAlpha") || commit.startsWith("calpha")) {
-            System.out.println("FOUND NEW ALPHA - COMMIT: " + commit); return 'alpha'
+            System.out.println("FOUND NEW ALPHA - COMMIT: ".concat(commit)); return 'alpha'
         } else {
             System.out.println("SKIPPING CURSE RELEASE - COMMIT: " + commit); return 'none'
         }
@@ -250,7 +241,7 @@ curseforge {
         return
     }
     project {
-        id = config.curse_project_id
+        id = curse_project_id
         addGameVersion '1.12.2'
 
         relations {
