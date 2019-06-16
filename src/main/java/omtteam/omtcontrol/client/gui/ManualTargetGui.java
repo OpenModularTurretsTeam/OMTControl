@@ -25,7 +25,7 @@ import omtteam.openmodularturrets.reference.OMTNames;
 import omtteam.openmodularturrets.tileentity.TurretBase;
 import omtteam.openmodularturrets.tileentity.turrets.AbstractDirectedTurret;
 import omtteam.openmodularturrets.tileentity.turrets.TurretHead;
-import omtteam.openmodularturrets.util.TurretHeadUtil;
+import omtteam.openmodularturrets.turret.TurretHeadUtil;
 import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;

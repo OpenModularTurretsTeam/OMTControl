@@ -14,7 +14,7 @@ import omtteam.omtcontrol.network.messages.MessageManualTarget;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import static omtteam.omtcontrol.util.WorldUtil.getTurretsFromBase;
-import static omtteam.openmodularturrets.util.TurretHeadUtil.getTurretBase;
+import static omtteam.openmodularturrets.turret.TurretHeadUtil.getTurretBase;
 
 public class BaseAddonBlockContainer extends Container {
     private final BlockPos pos;

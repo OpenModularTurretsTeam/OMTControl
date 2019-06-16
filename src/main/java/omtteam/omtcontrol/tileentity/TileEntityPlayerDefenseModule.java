@@ -38,7 +38,7 @@ public class TileEntityPlayerDefenseModule extends TileEntityBaseAddonMain imple
 
             //Random tick update rate of 20...
             if (ticks % 20 == 0) {
-                if (getWorld().isAnyPlayerWithinRangeAt(base.getPos().getX(), base.getPos().getY(), base.getPos().getZ(), base.getCurrentMaxRange())) {
+                if (getWorld().isAnyPlayerWithinRangeAt(base.getPos().getX(), base.getPos().getY(), base.getPos().getZ(), base.getMaxRange())) {
                     if (shouldProtectPlayer()) {
                         base.setMode(EnumMachineMode.ALWAYS_ON);
                     }
@@ -59,7 +59,7 @@ public class TileEntityPlayerDefenseModule extends TileEntityBaseAddonMain imple
      */
     private boolean shouldProtectPlayer() {
         // Create an AABB that matches the world.isAnyPlayerWithinRangeAt call.
-        AxisAlignedBB aabb = new AxisAlignedBB(getPos()).expand(base.getCurrentMaxRange(), base.getCurrentMaxRange(), base.getCurrentMaxRange());
+        AxisAlignedBB aabb = new AxisAlignedBB(getPos()).expand(base.getMaxRange(), base.getMaxRange(), base.getMaxRange());
         // Grab all players within that AABB
         List players = getWorld().getEntitiesWithinAABB(EntityPlayer.class, aabb);
         // Find if one of the players should be protected.

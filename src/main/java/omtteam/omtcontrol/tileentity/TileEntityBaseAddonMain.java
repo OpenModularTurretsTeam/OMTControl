@@ -6,11 +6,11 @@ import omtteam.omlib.tileentity.TileEntityBase;
 import omtteam.omlib.tileentity.TileEntityOwnedBlock;
 import omtteam.openmodularturrets.api.ITurretBaseAddonTileEntity;
 import omtteam.openmodularturrets.tileentity.TurretBase;
-import omtteam.openmodularturrets.util.TurretHeadUtil;
+import omtteam.openmodularturrets.turret.TurretHeadUtil;
 
 import javax.annotation.Nonnull;
 
-import static omtteam.openmodularturrets.util.TurretHeadUtil.getTurretBaseFacing;
+import static omtteam.openmodularturrets.turret.TurretHeadUtil.getTurretBaseFacing;
 
 /**
  * Created by Keridos on 17/05/17.

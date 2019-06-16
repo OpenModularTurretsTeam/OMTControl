@@ -2,12 +2,12 @@ package omtteam.omtcontrol.util;
 
 import net.minecraft.tileentity.TileEntity;
 import omtteam.openmodularturrets.tileentity.turrets.TurretHead;
-import omtteam.openmodularturrets.util.TurretHeadSettings;
-import omtteam.openmodularturrets.util.TurretHeadUtil;
+import omtteam.openmodularturrets.turret.TurretHeadSettings;
+import omtteam.openmodularturrets.turret.TurretHeadUtil;
 
 import java.util.HashMap;
 
-import static omtteam.omlib.util.WorldUtil.getTouchingTileEntities;
+import static omtteam.omlib.util.world.WorldUtil.getTouchingTileEntities;
 
 /**
  * Created by Keridos on 18/02/17.
