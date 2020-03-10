@@ -182,9 +182,9 @@ public class ManualTargetGui extends GuiContainer implements IHasTooltips {
         turretInfo.add("\u00A73" + safeLocalize(OMTNames.Localizations.GUI.BASE) + ":");
         turretInfo.add("\u00A76" + safeLocalize(OMLibNames.Localizations.GUI.OWNER) + ": \u00A7f" + base.getOwner().getName());
         turretInfo.add("\u00A76" + safeLocalize(OMLibNames.Localizations.GUI.ACTIVE) + ": " + (getColoredBooleanLocalizationYesNo(base.isActive())));
-        turretInfo.add("\u00A76" + safeLocalize(OMTNames.Localizations.GUI.ATTACK_MOBS) + ": " + getColoredBooleanLocalizationYesNo(base.isAttacksMobs()));
-        turretInfo.add("\u00A76" + safeLocalize(OMTNames.Localizations.GUI.ATTACK_NEUTRALS) + ": " + getColoredBooleanLocalizationYesNo(base.isAttacksNeutrals()));
-        turretInfo.add("\u00A76" + safeLocalize(OMTNames.Localizations.GUI.ATTACK_PLAYERS) + ": " + getColoredBooleanLocalizationYesNo(base.isAttacksPlayers()));
+        turretInfo.add("\u00A76" + safeLocalize(OMLibNames.Localizations.GUI.ATTACK_MOBS) + ": " + getColoredBooleanLocalizationYesNo(base.isAttacksMobs()));
+        turretInfo.add("\u00A76" + safeLocalize(OMLibNames.Localizations.GUI.ATTACK_NEUTRALS) + ": " + getColoredBooleanLocalizationYesNo(base.isAttacksNeutrals()));
+        turretInfo.add("\u00A76" + safeLocalize(OMLibNames.Localizations.GUI.ATTACK_PLAYERS) + ": " + getColoredBooleanLocalizationYesNo(base.isAttacksPlayers()));
         turretInfo.add("                               ");
         if (turrets.size() != 0) {
             TurretHead turret = turrets.get(selectedTurretFacing);

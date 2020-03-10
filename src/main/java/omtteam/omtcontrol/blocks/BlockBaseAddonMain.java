@@ -35,8 +35,8 @@ import omtteam.omtcontrol.reference.OMTControlNames;
 import omtteam.omtcontrol.reference.Reference;
 import omtteam.omtcontrol.tileentity.TileEntityBaseAddonMain;
 import omtteam.omtcontrol.tileentity.TileEntityPlayerDefenseModule;
+import omtteam.openmodularturrets.blocks.AbstractBaseAttachment;
 import omtteam.openmodularturrets.blocks.BlockBaseAttachment;
-import omtteam.openmodularturrets.blocks.BlockTurretBaseAttachment;
 import omtteam.openmodularturrets.tileentity.TurretBase;
 
 import javax.annotation.Nonnull;
@@ -49,7 +49,7 @@ import static omtteam.omlib.util.player.PlayerUtil.addChatMessage;
  * Created by Keridos on 09/02/17.
  * This Class
  */
-public class BlockBaseAddonMain extends BlockTurretBaseAttachment implements IHasItemBlock {
+public class BlockBaseAddonMain extends AbstractBaseAttachment implements IHasItemBlock {
     public static final int SUBBLOCK_COUNT = 2;
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
     private static final PropertyInteger META = PropertyInteger.create("meta", 0, SUBBLOCK_COUNT - 1);
